@@ -1,0 +1,44 @@
+{
+  "name": "app-name",
+  "engines": {
+    "node": ">=14.x"
+  },
+  "scripts": {
+    "prettier": "prettier --write src",
+    "eslint": "eslint --fix --ext .ts,.tsx src",
+    "format": "npm run eslint && npm run prettier",
+    "img": "node imagemin.js",
+    "start": "vite",
+    "build": "npm run format && tsc && vite build && npm run img"
+  },
+  "dependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "vite": "^2.6.13"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.3.1",
+    "@types/styled-components": "^5.1.15",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "@vitejs/plugin-react": "^1.0.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "imagemin": "^8.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-keep-folder": "^5.3.2",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-svgo": "^10.0.0",
+    "prettier": "^2.4.1",
+    "react-router-dom": "^5.3.0",
+    "sass": "^1.43.4",
+    "styled-components": "^5.3.3",
+    "typescript": "^4.3.2"
+  }
+}
