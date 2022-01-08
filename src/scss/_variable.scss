@@ -1,0 +1,43 @@
+@function palette($palette-group, $palette-type: 'default') {
+  @return map-get(map-get($palettes, $palette-group), $palette-type);
+}
+
+$palettes: (
+  'red': (
+    'default': #e53e3e,
+  ),
+  'orange': (
+    'default': #ed8936,
+  ),
+  'yellow': (
+    'default': #ecc94b,
+  ),
+  'green': (
+    'default': #38a169,
+  ),
+  'teal': (
+    'default': #38b2ac,
+  ),
+  'blue': (
+    'default': #3182ce,
+  ),
+  'cyan': (
+    'default': #0bc5ea,
+  ),
+  'purple': (
+    'default': #9f7aea,
+  ),
+  'pink': (
+    'default': #ed64a6,
+  ),
+  'black': (
+    'default': #171717,
+  ),
+  'gray': (
+    'default': #e2e8f0,
+    '1': #718096,
+  ),
+  'border': (
+    'default': #a0aec0,
+  ),
+);

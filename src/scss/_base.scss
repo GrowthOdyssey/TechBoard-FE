@@ -1,0 +1,22 @@
+@use '_variable' as v;
+
+body {
+  color: v.palette('black');
+  font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic Pro', 'メイリオ', sans-serif;
+}
+
+a {
+  color: v.palette('blue');
+}
+
+button,
+[type='submit'] {
+  cursor: pointer;
+}
+
+.root {
+  position: relative;
+  min-width: 1000px;
+  min-height: 100vh;
+  background: v.palette('gray');
+}
