@@ -5,7 +5,7 @@ export const Login: VFC = memo((props) => {
   return (
     <>
       <h1>Login</h1>
-      <Link to='/signup'>新規登録</Link>
+      <Link to="/signup">新規登録</Link>
     </>
   );
 });

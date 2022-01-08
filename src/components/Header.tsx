@@ -7,11 +7,13 @@ export const Header: VFC = memo(() => {
   return (
     <_Header>
       <_Inner>
-        <Link to='/'>
+        <Link to="/">
           <_Title>TechBoard</_Title>
         </Link>
         <div>
-          <Link to='/login' style={{color: '#171717'}}>ログイン</Link>
+          <Link to="/login" style={{ color: '#171717' }}>
+            ログイン
+          </Link>
         </div>
       </_Inner>
     </_Header>
@@ -23,15 +25,15 @@ const _Header = styled.header`
   height: 80px;
   padding: 20px;
   background: ${variable.green};
-`
+`;
 
 const _Inner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const _Title = styled.h1`
   font-size: 28px;
   color: ${variable.black};
-`
+`;
