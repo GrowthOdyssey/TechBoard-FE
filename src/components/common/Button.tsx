@@ -1,6 +1,6 @@
 import { VFC, memo } from 'react';
 import styled from 'styled-components';
-import { variable } from '../../variable';
+import { palette } from '../../variable';
 
 type props = {
   color?: string;
@@ -40,34 +40,34 @@ const _Button = styled.button`
   }
   &.btn-- {
     &red {
-      background: ${variable.red};
+      background: ${palette.red};
     }
     &orange {
-      background: ${variable.orange};
+      background: ${palette.orange};
     }
     &yellow {
-      background: ${variable.yellow};
+      background: ${palette.yellow};
     }
     &green {
-      background: ${variable.green};
+      background: ${palette.green};
     }
     &teal {
-      background: ${variable.teal};
+      background: ${palette.teal};
     }
     &blue {
-      background: ${variable.blue};
+      background: ${palette.blue};
     }
     &cyan {
-      background: ${variable.cyan};
+      background: ${palette.cyan};
     }
     &purple {
-      background: ${variable.purple};
+      background: ${palette.purple};
     }
     &pink {
-      background: ${variable.pink};
+      background: ${palette.pink};
     }
     &gray {
-      background: ${variable.gray[1]};
+      background: ${palette.gray[1]};
     }
   }
 `;

@@ -1,4 +1,4 @@
-export const variable = {
+export const palette = {
   red: ['#e53e3e'],
   orange: ['#ed8936'],
   yellow: ['#ecc94b'],

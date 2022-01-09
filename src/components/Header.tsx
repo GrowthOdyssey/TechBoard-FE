@@ -1,7 +1,7 @@
 import { VFC, memo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { variable } from '../variable';
+import { palette } from '../variable';
 
 export const Header: VFC = memo(() => {
   return (
@@ -24,7 +24,7 @@ const _Header = styled.header`
   width: 100%;
   height: 80px;
   padding: 20px;
-  background: ${variable.green};
+  background: ${palette.green};
 `;
 
 const _Inner = styled.div`
@@ -35,5 +35,5 @@ const _Inner = styled.div`
 
 const _Title = styled.h1`
   font-size: 28px;
-  color: ${variable.black};
+  color: ${palette.black};
 `;
