@@ -1,11 +1,29 @@
-import { VFC, memo } from 'react';
+import { VFC, memo, useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '../components/common/Button';
+import { Form } from '../components/common/Form';
+import { TextInput } from '../components/common/TextInput';
+import { useLogin } from '../hooks/useLogin';
 
-export const Login: VFC = memo((props) => {
+export const Login: VFC = memo(() => {
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const { login } = useLogin();
+
+  const onchangeUserId = (e: ChangeEvent<HTMLInputElement>) => setUserId(e.target.value);
+  const onchangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+
   return (
     <>
       <h1>Login</h1>
-      <Link to="/signup">新規登録</Link>
+      <Form>
+        <TextInput value={userId} placeholder={'ログインID'} onChange={onchangeUserId} />
+        <TextInput value={password} placeholder={'パスワード'} onChange={onchangePassword} />
+        <Button label={'ログイン'} onclick={login} />
+        <Link to="/signup" className="link">
+          新規会員登録はこちら
+        </Link>
+      </Form>
     </>
   );
 });

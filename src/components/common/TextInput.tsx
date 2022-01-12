@@ -11,8 +11,8 @@ type props = {
 export const TextInput: VFC<props> = memo((props) => {
   const { value, placeholder, onChange } = props;
   return (
-    <_InputContainer>
-      <_TextInput value={value} placeholder={placeholder} onChange={onChange} />
+    <_InputContainer className="textInput">
+      <_TextInput type="text" value={value} placeholder={placeholder} onChange={onChange} />
       <_FocusLine />
     </_InputContainer>
   );

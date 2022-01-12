@@ -2,19 +2,29 @@ import { VFC, memo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { palette } from '../variable';
+import { useLoginUser } from '../providers/LoginUserProvider';
 
 export const Header: VFC = memo(() => {
+  const { loginUser } = useLoginUser();
+
   return (
     <_Header>
       <_Inner>
         <Link to="/">
           <_Title>TechBoard</_Title>
         </Link>
-        <div>
-          <Link to="/login" style={{ color: '#171717' }}>
-            ログイン
-          </Link>
-        </div>
+        {loginUser.userId ? (
+          <div>{loginUser.nickname}</div>
+        ) : (
+          <div>
+            <Link to="/login" style={{ color: '#171717' }}>
+              ログイン
+            </Link>
+            <Link to="/signup" style={{ color: '#171717', marginLeft: '20px' }}>
+              会員登録
+            </Link>
+          </div>
+        )}
       </_Inner>
     </_Header>
   );
@@ -31,6 +41,9 @@ const _Inner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const _Title = styled.h1`

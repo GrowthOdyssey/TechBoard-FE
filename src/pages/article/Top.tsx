@@ -1,7 +1,7 @@
 import { VFC, memo } from 'react';
 import { Link } from 'react-router-dom';
 
-export const ArticleTop: VFC = memo((props) => {
+export const ArticleTop: VFC = memo(() => {
   return (
     <>
       <h1>article top</h1>
