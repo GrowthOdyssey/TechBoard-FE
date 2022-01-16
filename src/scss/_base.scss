@@ -7,6 +7,10 @@ body {
 
 a {
   color: v.palette('blue');
+  transition: opacity 0.2s;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 button,
@@ -15,6 +19,8 @@ button,
 }
 
 .root {
+  display: flex;
+  flex-direction: column;
   position: relative;
   min-height: 100vh;
   background: v.palette('gray');
