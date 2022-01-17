@@ -6,7 +6,7 @@ type props = {
   color?: string;
   label: string;
   isDisabled?: boolean;
-  onclick: () => void;
+  onclick?: () => void;
 };
 
 export const Button: VFC<props> = memo((props) => {

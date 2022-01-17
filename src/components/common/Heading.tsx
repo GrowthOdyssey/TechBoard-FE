@@ -1,17 +1,19 @@
-import { VFC, memo } from 'react';
+import { VFC, memo, ReactNode } from 'react';
 import styled from 'styled-components';
 
 type props = {
-  text: string;
+  children: ReactNode;
   size?: string;
   isCenter?: boolean;
 };
 
 export const Heading: VFC<props> = memo((props) => {
-  const { text, size, isCenter } = props;
+  const { children, size, isCenter } = props;
 
   return (
-    <_Heading className={`${size && `heading--${size}`} ${isCenter && 'center'}`}>{text}</_Heading>
+    <_Heading className={`${size && `heading--${size}`}${isCenter ? 'center' : ''}`}>
+      {children}
+    </_Heading>
   );
 });
 
@@ -20,13 +22,13 @@ Heading.defaultProps = {
 };
 
 const _Heading = styled.div`
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   font-weight: bold;
   &.center {
     text-align: center;
   }
   &.heading--1 {
-    font-size: 36px;
+    font-size: 32px;
   }
   &.heading--2 {
     font-size: 28px;

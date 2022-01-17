@@ -1,0 +1,9 @@
+ul.list {
+  display: flex;
+  flex-direction: column;
+  > li {
+    &:not(:first-of-type) {
+      margin-top: 20px;
+    }
+  }
+}

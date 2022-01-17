@@ -22,7 +22,7 @@ export const Layout: VFC<props> = memo((props) => {
 
 const _Container = styled.div`
   width: 1200px;
-  margin: 20px auto 0;
+  margin: 30px auto 40px;
   padding: 0 20px;
 `;
 

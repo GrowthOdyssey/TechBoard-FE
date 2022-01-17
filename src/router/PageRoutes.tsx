@@ -56,7 +56,7 @@ export const pageRoutes = [
     children: <BoardCreate />,
   },
   {
-    path: '/board/detail',
+    path: '/board/detail/:id',
     exact: false,
     children: <BoardDetail />,
   },
