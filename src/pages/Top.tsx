@@ -117,7 +117,7 @@ export const Top: VFC = memo(() => {
         </_Contents>
 
         <_Contents>
-          <Heading size={'4'}>最新の掲示板一覧</Heading>
+          <Heading size={'4'}>最新のスレッド一覧</Heading>
           <ul className="list">
             {threads.map((thread) => (
               <BoardCard key={thread.threadId} data={thread} />

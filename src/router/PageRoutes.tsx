@@ -43,6 +43,7 @@ export const pageRoutes = [
   {
     path: '/board/',
     exact: true,
+    sideBar: true,
     children: <BoardTop />,
   },
   {

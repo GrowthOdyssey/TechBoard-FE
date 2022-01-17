@@ -3,7 +3,7 @@ ul.list {
   flex-direction: column;
   > li {
     &:not(:first-of-type) {
-      margin-top: 20px;
+      margin-top: 15px;
     }
   }
 }

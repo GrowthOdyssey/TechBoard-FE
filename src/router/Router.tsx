@@ -10,7 +10,7 @@ export const Router = memo(() => {
       <Switch>
         {pageRoutes.map((route) => (
           <Route key={route.path} exact={route.exact} path={route.path}>
-            <Layout>{route.children}</Layout>
+            <Layout isSideBar={route.sideBar}>{route.children}</Layout>
           </Route>
         ))}
       </Switch>
