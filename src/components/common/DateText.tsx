@@ -11,7 +11,7 @@ export const DateText: VFC<props> = memo((props) => {
   return <_DateText>{children}</_DateText>;
 });
 
-const _DateText = styled.div`
+const _DateText = styled.span`
   display: inline-block;
   color: ${palette.gray[1]};
 `;
