@@ -55,6 +55,7 @@ export const pageRoutes = [
   {
     path: '/board/create',
     exact: false,
+    sideBar: true,
     children: <BoardCreate />,
   },
   {
