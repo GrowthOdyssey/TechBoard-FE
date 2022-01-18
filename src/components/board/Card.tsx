@@ -13,7 +13,7 @@ export const BoardCard: VFC<props> = memo((props) => {
   const { threadId, threadTitle, commentsCount, updatedAt } = props.data;
   return (
     <_Card>
-      <Link to={`/board/detail/${threadId}`}>
+      <Link to={`/board/detail/${threadId}/`}>
         <p>{threadTitle}</p>
         <p>コメント数：{commentsCount}</p>
         <p>

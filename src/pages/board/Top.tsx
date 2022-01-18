@@ -2,9 +2,9 @@ import { VFC, memo } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { BoardCard } from '../../components/board/Card';
+import { BoardSideBar } from '../../components/board/SideBar';
 import { Heading } from '../../components/common/Heading';
 import { Contents } from '../../components/Contents';
-import { SideBar } from '../../components/SideBar';
 import { thread } from '../../types/board/thread';
 
 const threads: thread[] = [
@@ -126,13 +126,7 @@ const categories = [
 export const BoardTop: VFC = memo(() => {
   return (
     <>
-      <SideBar>
-        <Link to="create">掲示板作成</Link>
-        <Link to="#" style={{ pointerEvents: 'none' }}>
-          掲示板検索
-        </Link>
-      </SideBar>
-
+      <BoardSideBar isVisible={'top'} />
       <Contents>
         <Heading size={'2'}>掲示板TOP</Heading>
         <section>
@@ -147,7 +141,7 @@ export const BoardTop: VFC = memo(() => {
           <Heading size={'4'}>カテゴリー一覧</Heading>
           <_CategoryList>
             {categories.map((category) => (
-              <Link to={`/board/category/${category.id}`} key={category.id}>
+              <Link to={`/board/category/${category.id}/`} key={category.id}>
                 {category.name}
               </Link>
             ))}
