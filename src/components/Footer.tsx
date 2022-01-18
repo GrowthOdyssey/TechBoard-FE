@@ -8,9 +8,9 @@ export const Footer: VFC = memo(() => {
     <_Footer>
       <_Inner>
         <_Links>
-          <Link to="/article">Article</Link>
+          <Link to="/article/">Article</Link>
           <span>|</span>
-          <Link to="/board">Board</Link>
+          <Link to="/board/">Board</Link>
         </_Links>
         <_Copyright>&copy; 2022 Growth Odyssey. All Rights Resarved.</_Copyright>
       </_Inner>

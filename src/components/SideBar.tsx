@@ -1,5 +1,6 @@
 import { VFC, memo, ReactNode } from 'react';
 import styled from 'styled-components';
+import { palette } from '../variable';
 
 type props = {
   children: ReactNode;
@@ -19,8 +20,13 @@ const _SideBar = styled.div`
   background: #fff;
   > a {
     display: block;
+    &.is-active {
+      color: ${palette.orange};
+      font-weight: bold;
+      pointer-events: none;
+    }
     &:not(:first-of-type) {
-      margin-top: 10px;
+      margin-top: 5px;
     }
   }
 `;
