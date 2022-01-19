@@ -5,6 +5,8 @@ import { BoardCard } from '../components/board/Card';
 import { Heading } from '../components/common/Heading';
 import { thread } from '../types/board/thread';
 import { Button } from '../components/common/Button';
+import { articleType } from '../types/article/articleType';
+import { ArticleCard } from '../components/article/Card';
 
 const threads: thread[] = [
   {
@@ -98,6 +100,24 @@ const threads: thread[] = [
     updatedAt: '2022-01-01T00:00:00+09:00',
   },
 ];
+const articles: articleType[] = [
+  {
+    articleId: '1',
+    articleTitle: '記事名1',
+    userId: 'userId1',
+    userName: 'ニックネーム1',
+    createdAt: '2022-01-01T00:00:00+09:00',
+    updatedAt: '2022-01-01T00:00:00+09:00',
+  },
+  {
+    articleId: '2',
+    articleTitle: '記事名2',
+    userId: 'userId2',
+    userName: 'ニックネーム2',
+    createdAt: '2022-01-01T00:00:00+09:00',
+    updatedAt: '2022-01-01T00:00:00+09:00',
+  },
+];
 
 export const Top: VFC = memo(() => {
   return (
@@ -111,6 +131,11 @@ export const Top: VFC = memo(() => {
       <_Container>
         <_Contents>
           <Heading size={'4'}>最新の記事一覧</Heading>
+          <ul className="list">
+            {articles.map((article) => (
+              <ArticleCard key={article.articleId} data={article} />
+            ))}
+          </ul>
           <Link to="/article/" className="btnLink">
             <Button label={'全て見る'} color={'teal'} />
           </Link>
