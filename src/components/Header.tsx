@@ -2,10 +2,14 @@ import { VFC, memo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { palette } from '../variable';
-import { useLoginUser } from '../providers/LoginUserProvider';
+import { LoginUserType } from '../providers/LoginUserProvider';
 
-export const Header: VFC = memo(() => {
-  const { loginUser } = useLoginUser();
+type props = {
+  loginUser: LoginUserType;
+};
+
+export const Header: VFC<props> = memo((props) => {
+  const { loginUser } = props;
 
   return (
     <_Header>
