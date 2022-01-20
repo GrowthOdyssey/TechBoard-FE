@@ -1,5 +1,6 @@
 import { VFC, memo, ReactNode } from 'react';
 import styled from 'styled-components';
+import { useLoginUser } from '../providers/LoginUserProvider';
 import { Footer } from './Footer';
 import { Header } from './Header';
 
@@ -10,10 +11,11 @@ type props = {
 
 export const Layout: VFC<props> = memo((props) => {
   const { children, isSideBar } = props;
+  const { loginUser } = useLoginUser();
 
   return (
     <>
-      <Header />
+      <Header loginUser={loginUser} />
       <_Container>
         <_MainContent className={isSideBar ? 'isSideBar' : ''}>{children}</_MainContent>
       </_Container>
