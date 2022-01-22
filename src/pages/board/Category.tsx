@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
 import { VFC, memo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { BoardCard } from '../../components/board/Card';
 import { BoardSideBar } from '../../components/board/SideBar';
 import { Heading } from '../../components/common/Heading';
@@ -9,9 +7,15 @@ import { Contents } from '../../components/Contents';
 import { threads, categories } from '../../mock/boardData';
 
 export const BoardCategory: VFC = memo(() => {
+  const history = useHistory();
   const { categoryId } = useParams<{ categoryId: string }>();
 
-  const getCategoryName = (id: string) => categories.find((v) => v.id === id)!.name;
+  const getCategoryName = (id: string) => {
+    const target = categories.find((v) => v.id === id);
+    if (!target) return history.push('/404');
+
+    return target.name;
+  }
 
   return (
     <>

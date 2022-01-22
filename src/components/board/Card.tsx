@@ -1,12 +1,12 @@
 import { VFC, memo } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { thread } from '../../types/board/thread';
+import { threadType } from '../../types/board/thread';
 import { palette } from '../../variable';
 import { DateText } from '../common/DateText';
 
 type props = {
-  data: thread;
+  data: threadType;
 };
 
 export const BoardCard: VFC<props> = memo((props) => {

@@ -61,6 +61,7 @@ export const pageRoutes = [
   {
     path: '/board/detail/:id',
     exact: false,
+    sideBar: true,
     children: <BoardDetail />,
   },
 ];
