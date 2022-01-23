@@ -28,6 +28,7 @@ export const pageRoutes = [
   {
     path: '/article/',
     exact: true,
+    sideBar: true,
     children: <ArticleTop />,
   },
   {
