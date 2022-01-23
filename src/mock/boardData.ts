@@ -1,6 +1,6 @@
-import { thread } from '../types/board/thread';
+import { threadType } from '../types/board/thread';
 
-export const threads: thread[] = [
+export const threads: threadType[] = [
   {
     threadId: '1',
     threadTitle: 'スレッドタイトル',
@@ -9,6 +9,46 @@ export const threads: thread[] = [
     comments: [
       {
         commentId: '1',
+        commentTitle: 'コメント',
+        userId: '1',
+        userName: 'ニックネーム',
+        sessionId: '1111',
+        createdAt: '2022-01-01T00:00:00+09:00',
+      },
+      {
+        commentId: '2',
+        commentTitle: 'コメント',
+        userId: '1',
+        userName: 'ニックネーム',
+        sessionId: '1111',
+        createdAt: '2022-01-01T00:00:00+09:00',
+      },
+      {
+        commentId: '3',
+        commentTitle: 'コメント',
+        userId: '1',
+        userName: 'ニックネーム',
+        sessionId: '1111',
+        createdAt: '2022-01-01T00:00:00+09:00',
+      },
+      {
+        commentId: '4',
+        commentTitle: 'コメント',
+        userId: '1',
+        userName: 'ニックネーム',
+        sessionId: '1111',
+        createdAt: '2022-01-01T00:00:00+09:00',
+      },
+      {
+        commentId: '5',
+        commentTitle: 'コメント',
+        userId: '1',
+        userName: 'ニックネーム',
+        sessionId: '1111',
+        createdAt: '2022-01-01T00:00:00+09:00',
+      },
+      {
+        commentId: '6',
         commentTitle: 'コメント',
         userId: '1',
         userName: 'ニックネーム',

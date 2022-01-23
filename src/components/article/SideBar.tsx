@@ -1,10 +1,10 @@
-import { memo, VFC } from "react";
-import { Link } from "react-router-dom";
-import { SideBar } from "../SideBar";
+import { memo, VFC } from 'react';
+import { Link } from 'react-router-dom';
+import { SideBar } from '../SideBar';
 
 type props = {
   isVisible?: 'top' | 'create';
-}
+};
 
 export const ArticleSideBar: VFC<props> = memo((props) => {
   const { isVisible } = props;
@@ -22,4 +22,4 @@ export const ArticleSideBar: VFC<props> = memo((props) => {
       </Link>
     </SideBar>
   );
-})
+});

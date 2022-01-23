@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Textarea } from '../../../src/components/common/TextArea';
+import { Textarea } from '../../../src/components/common/Textarea';
 
 export default {
   title: 'common/Textarea',
@@ -9,8 +9,11 @@ export default {
 const template = (props) => {
   const [value, setValue] = useState('');
 
-  return <Textarea placeholder={props.placeholder} value={value} onChange={(e) => setValue(e.target.value)} />
+  return <Textarea placeholder={props.placeholder} rows={props.rows} value={value} onChange={(e) => setValue(e.target.value)} />
 }
 
 export const Sample = template.bind({});
-Sample.args = { placeholder: '入力してください' }
+Sample.args = {
+  placeholder: '入力してください',
+  rows: 5
+}

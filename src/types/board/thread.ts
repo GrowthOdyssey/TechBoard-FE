@@ -1,18 +1,11 @@
-export type thread = {
+import { commentType } from './comment';
+
+export type threadType = {
   threadId: string;
   threadTitle: string;
   categoryId: string;
   commentsCount: number;
-  comments: [
-    {
-      commentId: string;
-      commentTitle: string;
-      userId: string;
-      userName: string;
-      sessionId: string;
-      createdAt: string;
-    }
-  ];
+  comments: commentType[];
   createdAt: string;
   updatedAt: string;
 };
