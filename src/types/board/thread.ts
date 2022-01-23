@@ -1,4 +1,4 @@
-import { commentType } from "./comment";
+import { commentType } from './comment';
 
 export type threadType = {
   threadId: string;

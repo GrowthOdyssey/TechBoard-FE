@@ -15,7 +15,7 @@ export const BoardCategory: VFC = memo(() => {
     if (!target) return history.push('/404');
 
     return target.name;
-  }
+  };
 
   return (
     <>

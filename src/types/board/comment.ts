@@ -5,4 +5,4 @@ export type commentType = {
   userName: string;
   sessionId: string;
   createdAt: string;
-}
+};

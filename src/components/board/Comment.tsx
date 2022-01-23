@@ -6,7 +6,7 @@ import { DateText } from '../common/DateText';
 
 type props = {
   data: commentType;
-}
+};
 
 export const BoardComment: VFC<props> = memo((props) => {
   const { commentId, commentTitle, userId, userName, createdAt } = props.data;
@@ -30,25 +30,25 @@ const _Comment = styled.li`
   + li {
     border-top: 1px solid ${palette.border};
   }
-`
+`;
 
 const _CommentHead = styled.div`
   font-size: 14px;
-`
+`;
 
 const _CommentId = styled.span`
   margin-right: 5px;
-`
+`;
 
 const _CommentUserName = styled.span`
   color: #0000cd;
   margin-right: 10px;
-`
+`;
 
 const _CommentUserId = styled.span`
   margin-left: 10px;
-`
+`;
 
 const _CommentContents = styled.div`
   margin-top: 5px;
-`
+`;
