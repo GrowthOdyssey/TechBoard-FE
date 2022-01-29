@@ -18,7 +18,7 @@ export const Header: VFC<props> = memo((props) => {
           <_Title>TechBoard</_Title>
         </Link>
         {loginUser.userId ? (
-          <div>{loginUser.nickname}</div>
+          <div>{loginUser.userName}</div>
         ) : (
           <div>
             <Link to="/login" style={{ color: '#171717' }}>

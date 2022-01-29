@@ -1,3 +1,5 @@
+export const apiPath = 'http://127.0.0.1:4010/v1';
+
 export const palette = {
   red: ['#e53e3e'],
   orange: ['#ed8936'],

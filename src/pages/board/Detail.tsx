@@ -39,12 +39,12 @@ export const BoardDetail: VFC = memo(() => {
 
   useEffect(() => setThread(threads.find((v) => v.threadId === id)!), [id]);
 
-  const getNickname = () => (loginUser.nickname ? loginUser.nickname : '名無しさん');
+  const getUserName = () => (loginUser.userName ? loginUser.userName : '名無しさん');
 
   const onchangeSetComment = (e: ChangeEvent<HTMLTextAreaElement>) => setComment(e.target.value);
 
   const submitComment = () => {
-    console.log('nickname', getNickname());
+    console.log('username', getUserName());
     console.log('comment', comment);
     setComment('');
   };
@@ -63,7 +63,7 @@ export const BoardDetail: VFC = memo(() => {
           <Heading size={'4'}>コメントを投稿する</Heading>
           <_CommentUserName>
             <span>ニックネーム</span>
-            <input type="text" value={getNickname()} disabled />
+            <input type="text" value={getUserName()} disabled />
           </_CommentUserName>
           <Textarea
             value={comment}
