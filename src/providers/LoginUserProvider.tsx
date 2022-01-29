@@ -2,7 +2,10 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useStat
 
 export type LoginUserType = {
   userId: string;
-  nickname: string;
+  userName: string;
+  avatarId: string;
+  accessToken: string;
+  createdAt: string;
 };
 
 export type LoginUserContextType = {
