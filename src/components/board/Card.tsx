@@ -17,7 +17,7 @@ export const BoardCard: VFC<props> = memo((props) => {
         <p>{threadTitle}</p>
         <p>コメント数：{commentsCount}</p>
         <p>
-          最新更新日：<DateText>{updatedAt}</DateText>
+          最新更新日：<DateText time={true}>{updatedAt}</DateText>
         </p>
       </Link>
     </_Card>

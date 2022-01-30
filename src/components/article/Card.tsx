@@ -17,8 +17,8 @@ export const ArticleCard: VFC<props> = memo((props) => {
       <Link to={`/article/detail/${articleId}`}>
         <div>
           <AvatarIcon userId="1" width="20px" />
-          <_UserName>{userName}</_UserName>
-          <DateText>が{createdAt}に投稿</DateText>
+          <_UserName>{userName}</_UserName>が<DateText>{createdAt}</DateText>
+          に投稿
         </div>
         <_Title>{articleTitle}</_Title>
       </Link>
