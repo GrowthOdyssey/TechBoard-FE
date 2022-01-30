@@ -16,7 +16,7 @@ export const BoardComment: VFC<props> = memo((props) => {
       <_CommentHead>
         <_CommentId>{commentId}.</_CommentId>
         <_CommentUserName>{userName}</_CommentUserName>
-        <DateText>{createdAt}</DateText>
+        <DateText time={true}>{createdAt}</DateText>
         <_CommentUserId>ID:{userId}</_CommentUserId>
       </_CommentHead>
       <_CommentContents>{commentTitle}</_CommentContents>
