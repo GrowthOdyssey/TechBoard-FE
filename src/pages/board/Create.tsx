@@ -6,7 +6,7 @@ import { Heading } from '../../components/common/Heading';
 import { Select } from '../../components/common/Select';
 import { TextInput } from '../../components/common/TextInput';
 import { Contents } from '../../components/Contents';
-import { categories } from '../../mock/boardData';
+import { m_categories } from '../../mock/boardData';
 import { palette } from '../../variable';
 
 export const BoardCreate: VFC = memo(() => {
@@ -16,7 +16,7 @@ export const BoardCreate: VFC = memo(() => {
   const onchangeCategory = (e: ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value);
   const onchangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
 
-  const getCategory = () => categories.map((v) => v.name);
+  const getCategory = () => m_categories.map((v) => v.name);
 
   const createThread = () => {
     console.log('create thread');

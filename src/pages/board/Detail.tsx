@@ -7,7 +7,7 @@ import { BoardComment } from '../../components/board/Comment';
 import { BoardSideBar } from '../../components/board/SideBar';
 import { Heading } from '../../components/common/Heading';
 import { Contents } from '../../components/Contents';
-import { threads } from '../../mock/boardData';
+import { m_threads } from '../../mock/boardData';
 import { threadType } from '../../types/board/thread';
 import { Textarea } from '../../components/common/Textarea';
 import { Button } from '../../components/common/Button';
@@ -37,7 +37,7 @@ export const BoardDetail: VFC = memo(() => {
     updatedAt: '',
   });
 
-  useEffect(() => setThread(threads.find((v) => v.threadId === id)!), [id]);
+  useEffect(() => setThread(m_threads.find((v) => v.threadId === id)!), [id]);
 
   const getUserName = () => (loginUser.userName ? loginUser.userName : '名無しさん');
 

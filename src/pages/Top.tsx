@@ -5,7 +5,7 @@ import { BoardCard } from '../components/board/Card';
 import { Heading } from '../components/common/Heading';
 import { Button } from '../components/common/Button';
 import { ArticleCard } from '../components/article/Card';
-import { threads } from '../mock/boardData';
+import { m_threads } from '../mock/boardData';
 import { articles } from '../mock/articleData';
 import { palette } from '../variable';
 
@@ -71,7 +71,7 @@ export const Top: VFC = memo(() => {
           </_LinkWrapper>
           <Heading size={'4'}>最新のスレッド一覧</Heading>
           <ul className="list">
-            {threads.map((thread) => (
+            {m_threads.map((thread) => (
               <BoardCard key={thread.threadId} data={thread} />
             ))}
           </ul>
