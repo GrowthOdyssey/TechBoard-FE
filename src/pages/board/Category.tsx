@@ -1,18 +1,23 @@
-import { VFC, memo } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { VFC, memo, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { BoardCard } from '../../components/board/Card';
 import { BoardSideBar } from '../../components/board/SideBar';
 import { Heading } from '../../components/common/Heading';
 import { Contents } from '../../components/Contents';
-import { m_threads, m_categories } from '../../mock/boardData';
+import { useBoard } from '../../hooks/useBoard';
 
 export const BoardCategory: VFC = memo(() => {
-  const history = useHistory();
   const { categoryId } = useParams<{ categoryId: string }>();
+  const { threadList, categories, getThreadList, getCategories } = useBoard();
+
+  useEffect(() => {
+    getCategories();
+    getThreadList('1', '20', categoryId);
+  }, []);
 
   const getCategoryName = (id: string) => {
-    const target = m_categories.find((v) => v.id === id);
-    if (!target) return history.push('/404');
+    const target = categories.find((v) => v.id === id);
+    if (!target) return;
 
     return target.name;
   };
@@ -24,7 +29,7 @@ export const BoardCategory: VFC = memo(() => {
         <Heading size={'2'}>{getCategoryName(categoryId)}のスレッド一覧</Heading>
         <section>
           <ul className="list">
-            {m_threads.map((thread) => (
+            {threadList.map((thread) => (
               <BoardCard key={thread.threadId} data={thread} />
             ))}
           </ul>

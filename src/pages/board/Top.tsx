@@ -14,7 +14,7 @@ export const BoardTop: VFC = memo(() => {
   useEffect(() => {
     getCategories();
     getThreadList('1', '20');
-  });
+  }, []);
 
   return (
     <>

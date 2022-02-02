@@ -4,8 +4,27 @@ import { apiPath } from '../variable';
 import { m_categories, m_threads } from '../mock/boardData';
 import { categoryType } from '../types/board/category';
 import { threadType } from '../types/board/thread';
+import { getSessionId } from '../utility';
 
 export const useBoard = () => {
+  const [thread, setThread] = useState<threadType>({
+    threadId: '',
+    threadTitle: '',
+    categoryId: '',
+    commentsCount: 0,
+    comments: [
+      {
+        commentId: '',
+        commentTitle: '',
+        userId: '',
+        userName: '',
+        sessionId: '',
+        createdAt: '',
+      },
+    ],
+    createdAt: '',
+    updatedAt: '',
+  });
   const [threadList, setThreadList] = useState<threadType[]>([]);
   const [categories, setCategory] = useState<categoryType[]>([]);
 
@@ -17,11 +36,11 @@ export const useBoard = () => {
    * @return {threadList}
    */
   const getThreadList = useCallback((page: string, perPage: string, categoryId?: string) => {
-    const categoryQuery = categoryId ? `?categoryId=${categoryId}` : '';
+    const categoryQuery = categoryId ? `categoryId=${categoryId}` : '';
 
     // prettier-ignore
-    axios.post(`${apiPath}/threads${categoryQuery}&page=${page}&perPage=${perPage}`)
-      .then(res => setThreadList(res.data))
+    axios.get(`${apiPath}/threads?${categoryQuery}&page=${page}&perPage=${perPage}`)
+      .then(res => setThreadList(res.data.threads))
       .catch(() => setThreadList(m_threads))
   }, []);
 
@@ -33,18 +52,65 @@ export const useBoard = () => {
   }, []);
 
   /**
-   * スレッド取得APi
+   * スレッド取得API
+   * @param  {string} threadId
+   * @return {threadType}
    */
-  const getThread = useCallback(() => {
-    //
+  const getThread = useCallback((threadId: string) => {
+    // prettier-ignore
+    axios.get(`${apiPath}/threads/${threadId}`)
+      .then(res => setThread(res.data))
+      .catch(() => setThread(m_threads[0]))
   }, []);
 
   /**
    * コメント作成API
+   * @param  {string} threadId
+   * @param  {string} userId optional
+   * @param  {string} sessionId
+   * @param  {string} comment
+   * @return {threadType}
    */
-  const createComment = useCallback(() => {
-    //
-  }, []);
+  const createComment = useCallback(
+    (threadId: string, comment: string, userId?: string) => {
+      const postData = {
+        userId: userId ? userId : '',
+        sessionId: userId ? userId : getSessionId(),
+        commentTitle: comment,
+      };
+
+      // prettier-ignore
+      axios.post(`${apiPath}/threads/${threadId}/comments`, postData)
+      .then(res => {
+        // API動作後
+        // thread.comments.push(res.data)
+        // setThread({...thread})
+
+        // デバッグ用
+        thread.comments.push({
+          commentId: `${thread.comments.length + 1}`,
+          commentTitle: comment,
+          userId: '',
+          userName: '',
+          sessionId: postData.sessionId,
+          createdAt: `${new Date()}`
+        })
+        setThread({...thread})
+      })
+      .catch(() => {
+        thread.comments.push({
+          commentId: `${thread.comments.length + 1}`,
+          commentTitle: comment,
+          userId: '',
+          userName: '',
+          sessionId: postData.sessionId,
+          createdAt: `${new Date()}`
+        })
+        setThread({...thread})
+      })
+    },
+    [thread]
+  );
 
   /**
    * カテゴリー一覧取得API
@@ -53,12 +119,13 @@ export const useBoard = () => {
    */
   const getCategories = useCallback(() => {
     // prettier-ignore
-    axios.post(`${apiPath}/category`)
+    axios.get(`${apiPath}/category`)
       .then(res => setCategory(res.data))
       .catch(() => setCategory(m_categories))
   }, []);
 
   return {
+    thread,
     threadList,
     categories,
     getThreadList,
