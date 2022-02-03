@@ -5,6 +5,7 @@ import { m_categories, m_threads } from '../mock/boardData';
 import { categoryType } from '../types/board/category';
 import { threadType } from '../types/board/thread';
 import { useCookie } from './useCookie';
+import { useHistory } from 'react-router-dom';
 
 // prettier-ignore
 export const useBoard = () => {
@@ -29,6 +30,7 @@ export const useBoard = () => {
   const [threadList, setThreadList] = useState<threadType[]>([]);
   const [categories, setCategory] = useState<categoryType[]>([]);
   const { getSessionId } = useCookie();
+  const history = useHistory();
 
   /**
    * スレッド一覧取得API
@@ -46,9 +48,20 @@ export const useBoard = () => {
 
   /**
    * スレッド作成API
+   * @param  {string} accessToken
+   * @param  {string} categoryId
+   * @param  {string} title
+   * @return {threadType}
    */
-  const createThread = useCallback(() => {
-    //
+  const createThread = useCallback((accessToken: string, categoryId: string, threadTitle: string) => {
+    axios.post(`${apiPath}/threads/`, {categoryId, threadTitle} , {headers: {accessToken}})
+      .then(res => {
+        // res.data new thread
+        history.push(`/board/detail/${res.data.threadId}/`)
+      })
+      .catch(() => {
+        history.push(`/board/detail/${m_threads[0].threadId}/`)
+      })
   }, []);
 
   /**

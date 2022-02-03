@@ -9,7 +9,7 @@ export default {
 const template = (props) => {
   const [value, setValue] = useState('');
 
-  return <Select options={props.options} value={value} onChange={(e) => setValue(e.target.value)} hdg={props.hdg} disabled={props.disabled} />
+  return <Select options={props.options} name={'name'} onChange={(e) => setValue(e.target.value)} hdg={props.hdg} disabled={props.disabled} />
 }
 
 export const Sample = template.bind({});
