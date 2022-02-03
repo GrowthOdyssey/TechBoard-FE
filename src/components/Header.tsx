@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { palette } from '../variable';
 import { LoginUserType } from '../providers/LoginUserProvider';
+import { ImageIcon } from './common/ImageIcon';
+import { AvatarIcon } from './common/AvatarIcon';
 
 type props = {
   loginUser: LoginUserType;
@@ -18,16 +20,21 @@ export const Header: VFC<props> = memo((props) => {
           <_Title>TechBoard</_Title>
         </Link>
         {loginUser.userId ? (
-          <div>{loginUser.userName}</div>
+          <_Profile>
+            <AvatarIcon avatorId={loginUser.avatarId} alt={loginUser.userName} width={'50px'} />
+            <span>{loginUser.userName}</span>
+          </_Profile>
         ) : (
-          <div>
-            <Link to="/login" style={{ color: '#171717' }}>
-              ログイン
+          <_Menu>
+            <Link to="/login">
+              <ImageIcon src={'ico_login.svg'} alt={'ログイン'} width={'20px'} />
+              <span>ログイン</span>
             </Link>
-            <Link to="/signup" style={{ color: '#171717', marginLeft: '20px' }}>
-              会員登録
+            <Link to="/signup">
+              <ImageIcon src={'ico_signup.svg'} alt={'会員登録'} width={'20px'} />
+              <span>会員登録</span>
             </Link>
-          </div>
+          </_Menu>
         )}
       </_Inner>
     </_Header>
@@ -36,9 +43,8 @@ export const Header: VFC<props> = memo((props) => {
 
 const _Header = styled.header`
   width: 100%;
-  height: 80px;
-  padding: 20px;
-  background: ${palette.green};
+  padding: 15px 20px;
+  background: #48bb78;
 `;
 
 const _Inner = styled.div`
@@ -46,6 +52,7 @@ const _Inner = styled.div`
   align-items: center;
   justify-content: space-between;
   max-width: 1200px;
+  min-height: 50px;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -53,4 +60,29 @@ const _Inner = styled.div`
 const _Title = styled.h1`
   font-size: 28px;
   color: ${palette.black};
+`;
+
+const _Profile = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    margin-left: 10px;
+  }
+`;
+
+const _Menu = styled.div`
+  > a {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid ${palette.gray[1]};
+    border-radius: 22px;
+    + a {
+      margin-left: 20px;
+    }
+    span {
+      margin-left: 10px;
+    }
+  }
 `;

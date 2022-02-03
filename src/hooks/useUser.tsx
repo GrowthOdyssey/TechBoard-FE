@@ -58,7 +58,7 @@ export const useUser = () => {
         const user: LoginUserType = {
           userId: '1',
           userName: 'たなか',
-          avatarId: '1',
+          avatarId: getAvatorId(),
           accessToken: 'abcd1234',
           createdAt: '2022-01-01T00:00:00+09:00'
         };

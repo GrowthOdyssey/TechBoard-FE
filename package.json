@@ -1,5 +1,5 @@
 {
-  "name": "app-name",
+  "name": "tech-board",
   "engines": {
     "node": ">=14.x"
   },
@@ -8,7 +8,7 @@
     "eslint": "eslint --fix --ext .ts,.tsx src",
     "format": "npm run eslint && npm run prettier",
     "img": "node imagemin.js",
-    "start": "vite",
+    "start": "vite --mode dev",
     "build": "npm run format && tsc && vite build && npm run img",
     "sb": "start-storybook -p 6006",
     "build-sb": "build-storybook"
