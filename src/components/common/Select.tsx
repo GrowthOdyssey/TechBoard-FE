@@ -4,19 +4,19 @@ import { palette } from '../../variable';
 
 type props = {
   options: string[];
-  value: number | string;
+  name: string;
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   hdg: string;
   disabled?: boolean;
 };
 
 export const Select: VFC<props> = memo((props) => {
-  const { options, value, onChange, hdg, disabled } = props;
+  const { options, name, onChange, hdg, disabled } = props;
 
   return (
     <_Container>
       <_Heading>{hdg}</_Heading>
-      <_Select value={value} onChange={onChange} disabled={disabled}>
+      <_Select name={name} onChange={onChange} disabled={disabled}>
         <option>-- 選択してください --</option>
         {options.map((option) => (
           <option key={option} value={option}>

@@ -1,6 +1,7 @@
+import { categoryType } from '../types/board/category';
 import { threadType } from '../types/board/thread';
 
-export const threads: threadType[] = [
+export const m_threads: threadType[] = [
   {
     threadId: '1',
     threadTitle: 'スレッドタイトル',
@@ -133,7 +134,7 @@ export const threads: threadType[] = [
   },
 ];
 
-export const categories = [
+export const m_categories: categoryType[] = [
   {
     id: '1',
     name: 'HTML',

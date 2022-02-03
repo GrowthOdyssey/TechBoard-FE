@@ -9,15 +9,15 @@ type props = {
 };
 
 export const BoardComment: VFC<props> = memo((props) => {
-  const { commentId, commentTitle, userId, userName, createdAt } = props.data;
+  const { commentId, commentTitle, userName, sessionId, createdAt } = props.data;
 
   return (
     <_Comment>
       <_CommentHead>
         <_CommentId>{commentId}.</_CommentId>
-        <_CommentUserName>{userName}</_CommentUserName>
+        <_CommentUserName>{userName ? userName : '名無しさん'}</_CommentUserName>
         <DateText time={true}>{createdAt}</DateText>
-        <_CommentUserId>ID:{userId}</_CommentUserId>
+        <_CommentUserId>ID:{sessionId}</_CommentUserId>
       </_CommentHead>
       <_CommentContents>{commentTitle}</_CommentContents>
     </_Comment>

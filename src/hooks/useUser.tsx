@@ -1,27 +1,13 @@
 import { useCallback } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router';
 import { LoginUserType, useLoginUser } from '../providers/LoginUserProvider';
 import { apiPath } from '../variable';
+import { getAvatorId } from '../utility';
+import { useRedirect } from './useRedirect';
 
 export const useUser = () => {
-  const history = useHistory();
   const { setLoginUser } = useLoginUser();
-
-  const redirectToTop = () => history.push('/');
-
-  const getAvatorId = () => {
-    const pokemonLength = 151;
-    const random = `${Math.floor(Math.random() * pokemonLength) + 1}`;
-
-    // prettier-ignore
-    const id: string =
-      random.length === 1 ? `00${random}`:
-      random.length === 2 ? `0${random}`:
-      random;
-
-    return id;
-  };
+  const { toTop } = useRedirect();
 
   /**
    * ユーザー登録API
@@ -39,8 +25,19 @@ export const useUser = () => {
       .then(res => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
-        redirectToTop();
-      });
+        toTop();
+      })
+      .catch(() => {
+        const user: LoginUserType = {
+          userId: data.userId,
+          userName: data.userName,
+          avatarId: avatorId,
+          accessToken: 'abcd1234',
+          createdAt: '2022-01-01T00:00:00+09:00'
+        };
+        setLoginUser(user);
+        toTop();
+      })
   }, []);
 
   /**
@@ -55,8 +52,19 @@ export const useUser = () => {
       .then(res => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
-        redirectToTop();
-      });
+        toTop();
+      })
+      .catch(() => {
+        const user: LoginUserType = {
+          userId: '1',
+          userName: 'たなか',
+          avatarId: '1',
+          accessToken: 'abcd1234',
+          createdAt: '2022-01-01T00:00:00+09:00'
+        };
+        setLoginUser(user);
+        toTop();
+      })
   }, []);
 
   /**
@@ -69,7 +77,7 @@ export const useUser = () => {
     axios.post(`${apiPath}/users/logout/${userId}`)
       .then(() => {
         setLoginUser({} as LoginUserType);
-        redirectToTop();
+        toTop();
       });
   }, []);
 

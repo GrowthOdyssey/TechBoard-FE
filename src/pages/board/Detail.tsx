@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
 import { VFC, memo, useState, useEffect, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router';
@@ -7,45 +5,28 @@ import { BoardComment } from '../../components/board/Comment';
 import { BoardSideBar } from '../../components/board/SideBar';
 import { Heading } from '../../components/common/Heading';
 import { Contents } from '../../components/Contents';
-import { threads } from '../../mock/boardData';
-import { threadType } from '../../types/board/thread';
 import { Textarea } from '../../components/common/Textarea';
 import { Button } from '../../components/common/Button';
 import { useLoginUser } from '../../providers/LoginUserProvider';
 import { palette } from '../../variable';
+import { useBoard } from '../../hooks/useBoard';
 
 export const BoardDetail: VFC = memo(() => {
   const { loginUser } = useLoginUser();
   const { id } = useParams<{ id: string }>();
   const [comment, setComment] = useState('');
-  const [thread, setThread] = useState<threadType>({
-    threadId: '',
-    threadTitle: '',
-    categoryId: '',
-    commentsCount: 0,
-    comments: [
-      {
-        commentId: '',
-        commentTitle: '',
-        userId: '',
-        userName: '',
-        sessionId: '',
-        createdAt: '',
-      },
-    ],
-    createdAt: '',
-    updatedAt: '',
-  });
+  const { thread, getThread, createComment } = useBoard();
 
-  useEffect(() => setThread(threads.find((v) => v.threadId === id)!), [id]);
+  useEffect(() => {
+    getThread(id);
+  }, [id]);
 
   const getUserName = () => (loginUser.userName ? loginUser.userName : '名無しさん');
 
   const onchangeSetComment = (e: ChangeEvent<HTMLTextAreaElement>) => setComment(e.target.value);
 
   const submitComment = () => {
-    console.log('username', getUserName());
-    console.log('comment', comment);
+    createComment(id, comment, loginUser.userId);
     setComment('');
   };
 

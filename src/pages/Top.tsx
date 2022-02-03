@@ -1,15 +1,21 @@
-import { VFC, memo } from 'react';
+import { VFC, memo, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { BoardCard } from '../components/board/Card';
 import { Heading } from '../components/common/Heading';
 import { Button } from '../components/common/Button';
 import { ArticleCard } from '../components/article/Card';
-import { threads } from '../mock/boardData';
 import { articles } from '../mock/articleData';
 import { palette } from '../variable';
+import { useBoard } from '../hooks/useBoard';
 
 export const Top: VFC = memo(() => {
+  const { threadList, getThreadList } = useBoard();
+
+  useEffect(() => {
+    getThreadList('1', '5');
+  }, []);
+
   return (
     <>
       <Heading size={'1'}>TechBoard</Heading>
@@ -71,7 +77,7 @@ export const Top: VFC = memo(() => {
           </_LinkWrapper>
           <Heading size={'4'}>最新のスレッド一覧</Heading>
           <ul className="list">
-            {threads.map((thread) => (
+            {threadList.map((thread) => (
               <BoardCard key={thread.threadId} data={thread} />
             ))}
           </ul>

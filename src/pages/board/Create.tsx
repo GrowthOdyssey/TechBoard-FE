@@ -1,4 +1,4 @@
-import { VFC, memo, useState, ChangeEvent } from 'react';
+import { VFC, memo, useState, ChangeEvent, useEffect } from 'react';
 import styled from 'styled-components';
 import { BoardSideBar } from '../../components/board/SideBar';
 import { Button } from '../../components/common/Button';
@@ -6,20 +6,36 @@ import { Heading } from '../../components/common/Heading';
 import { Select } from '../../components/common/Select';
 import { TextInput } from '../../components/common/TextInput';
 import { Contents } from '../../components/Contents';
-import { categories } from '../../mock/boardData';
+import { useBoard } from '../../hooks/useBoard';
+import { useLoginUser } from '../../providers/LoginUserProvider';
+import { categoryType } from '../../types/board/category';
 import { palette } from '../../variable';
 
 export const BoardCreate: VFC = memo(() => {
-  const [category, setCategory] = useState('');
+  const { loginUser } = useLoginUser();
+  const [category, setCategory] = useState<categoryType>({} as categoryType);
   const [title, setTitle] = useState('');
+  const { categories, createThread, getCategories } = useBoard();
 
-  const onchangeCategory = (e: ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value);
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const onchangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedIndex = e.target.selectedIndex;
+    selectedIndex === 0
+      ? setCategory({} as categoryType)
+      : setCategory(categories[selectedIndex - 1]);
+  };
   const onchangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
-
   const getCategory = () => categories.map((v) => v.name);
-
-  const createThread = () => {
-    console.log('create thread');
+  const onclickCreateThread = () => {
+    if (category.id && title !== '') {
+      createThread(loginUser.accessToken, category.id, title);
+    } else {
+      if (!category.id) alert('カテゴリーを選択して下さい');
+      else if (title === '') alert('スレッドタイトルを入力して下さい。');
+    }
   };
 
   return (
@@ -27,10 +43,11 @@ export const BoardCreate: VFC = memo(() => {
       <BoardSideBar isVisible={'create'} />
       <Contents>
         <Heading size={'2'}>スレッド新規作成</Heading>
+        {!loginUser.userId && <p>スレッドを作成するにはログインして下さい。</p>}
         <_Form>
           <Select
             options={getCategory()}
-            value={category}
+            name={'category'}
             onChange={onchangeCategory}
             hdg={'カテゴリー'}
           />
@@ -39,7 +56,11 @@ export const BoardCreate: VFC = memo(() => {
             placeholder={'スレッド名を入力してください'}
             onChange={onchangeTitle}
           />
-          <Button label={'作成'} onclick={createThread} />
+          <Button
+            label={'作成'}
+            onclick={onclickCreateThread}
+            isDisabled={loginUser.userId ? false : true}
+          />
         </_Form>
       </Contents>
     </>
@@ -47,6 +68,7 @@ export const BoardCreate: VFC = memo(() => {
 });
 
 const _Form = styled.div`
+  margin-top: 20px;
   padding: 30px 40px 40px;
   background: #fff;
   border: solid 1px ${palette.border};
