@@ -3,7 +3,7 @@ const isDevelopment = (<any>import.meta).env.VITE_MODE;
 
 export const apiPath = 'http://127.0.0.1:4010/v1';
 
-export const imagePath = isDevelopment ? '../images/' : '/assets/images/';
+export const imagePath = isDevelopment ? '/images/' : '/assets/images/';
 
 export const palette = {
   red: ['#e53e3e'],
