@@ -1,6 +1,8 @@
 import { VFC, memo, ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLoginUser } from '../providers/LoginUserProvider';
+import { Breadcrumb } from './Breadcrumb';
 import { Footer } from './Footer';
 import { Header } from './Header';
 
@@ -12,11 +14,13 @@ type props = {
 export const Layout: VFC<props> = memo((props) => {
   const { children, isSideBar } = props;
   const { loginUser } = useLoginUser();
+  const { pathname } = useLocation();
 
   return (
     <>
       <Header loginUser={loginUser} />
       <_Container>
+        {pathname !== '/' && <Breadcrumb />}
         <_MainContent className={isSideBar ? 'isSideBar' : ''}>{children}</_MainContent>
       </_Container>
       <Footer />
@@ -26,7 +30,7 @@ export const Layout: VFC<props> = memo((props) => {
 
 const _Container = styled.div`
   width: 1040px;
-  margin: 30px auto 40px;
+  margin: 20px auto 40px;
   padding: 0 20px;
 `;
 
