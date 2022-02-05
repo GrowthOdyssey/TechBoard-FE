@@ -15,9 +15,12 @@
   },
   "dependencies": {
     "axios": "^0.25.0",
+    "highlightjs": "^9.16.2",
+    "marked": "^4.0.12",
     "react": "^17.0.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.0",
+    "react-simplemde-editor": "^5.0.2",
     "vite": "^2.6.13"
   },
   "devDependencies": {
@@ -26,6 +29,7 @@
     "@storybook/addon-essentials": "^6.4.13",
     "@storybook/addon-links": "^6.4.13",
     "@storybook/react": "^6.4.13",
+    "@types/highlightjs": "^9.12.2",
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
