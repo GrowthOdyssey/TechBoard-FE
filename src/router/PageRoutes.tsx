@@ -34,6 +34,7 @@ export const pageRoutes = [
   {
     path: '/article/create',
     exact: false,
+    sideBar: true,
     children: <ArticleCreate />,
   },
   {
