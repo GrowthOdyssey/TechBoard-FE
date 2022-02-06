@@ -3,6 +3,7 @@
 import { memo, ReactNode, VFC } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { LoginUserProvider } from './LoginUserProvider';
+import { ToastProvider } from './ToastProvider';
 
 type props = {
   children: ReactNode;
@@ -20,7 +21,7 @@ const bundleComponents = (...components: any[]) => {
   }
 };
 
-const ComposeProvider = bundleComponents(CookiesProvider, LoginUserProvider);
+const ComposeProvider = bundleComponents(CookiesProvider, LoginUserProvider, ToastProvider);
 
 export const Providers: VFC<props> = memo((props) => {
   const { children } = props;

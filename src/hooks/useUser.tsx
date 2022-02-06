@@ -4,10 +4,12 @@ import { LoginUserType, useLoginUser } from '../providers/LoginUserProvider';
 import { apiPath } from '../variable';
 import { getAvatorId } from '../utility';
 import { useRedirect } from './useRedirect';
+import { useToast } from '../providers/ToastProvider';
 
 export const useUser = () => {
   const { setLoginUser } = useLoginUser();
   const { toTop } = useRedirect();
+  const { setToast } = useToast();
 
   /**
    * ユーザー登録API
@@ -25,6 +27,7 @@ export const useUser = () => {
       .then(res => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
+        setToast({text: '登録が完了しました', status: 'success'})
         toTop();
       })
       .catch(() => {
@@ -36,6 +39,7 @@ export const useUser = () => {
           createdAt: '2022-01-01T00:00:00+09:00'
         };
         setLoginUser(user);
+        setToast({text: '登録が完了しました', status: 'success'})
         toTop();
       })
   }, []);
@@ -52,6 +56,7 @@ export const useUser = () => {
       .then(res => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
+        setToast({text: 'ログインしました', status: 'success'})
         toTop();
       })
       .catch(() => {
@@ -63,6 +68,7 @@ export const useUser = () => {
           createdAt: '2022-01-01T00:00:00+09:00'
         };
         setLoginUser(user);
+        setToast({text: 'ログインしました', status: 'success'})
         toTop();
       })
   }, []);
@@ -77,6 +83,7 @@ export const useUser = () => {
     axios.post(`${apiPath}/users/logout/${userId}`)
       .then(() => {
         setLoginUser({} as LoginUserType);
+        setToast({text: 'ログアウトしました', status: 'success'})
         toTop();
       });
   }, []);

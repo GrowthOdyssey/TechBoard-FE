@@ -6,6 +6,7 @@ import { categoryType } from '../types/board/category';
 import { threadType } from '../types/board/thread';
 import { useCookie } from './useCookie';
 import { useHistory } from 'react-router-dom';
+import { useToast } from '../providers/ToastProvider';
 
 // prettier-ignore
 export const useBoard = () => {
@@ -30,6 +31,7 @@ export const useBoard = () => {
   const [threadList, setThreadList] = useState<threadType[]>([]);
   const [categories, setCategory] = useState<categoryType[]>([]);
   const { getSessionId } = useCookie();
+  const { setToast } = useToast()
   const history = useHistory();
 
   /**
@@ -58,9 +60,11 @@ export const useBoard = () => {
       .then(res => {
         // res.data new thread
         history.push(`/board/detail/${res.data.threadId}/`)
+        setToast({text: 'スレッドを作成しました', status: 'success'})
       })
       .catch(() => {
         history.push(`/board/detail/${m_threads[0].threadId}/`)
+        setToast({text: 'スレッドを作成しました', status: 'success'})
       })
   }, []);
 
