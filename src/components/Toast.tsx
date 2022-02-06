@@ -6,7 +6,7 @@ export const Toast: VFC = memo(() => {
   const { toast, setToast } = useToast();
 
   useEffect(() => {
-    setTimeout(() => setToast({} as ToastType), 3000);
+    setTimeout(() => setToast({} as ToastType), 2700);
   }, []);
 
   return <_Toast className={toast.status}>{toast.text}</_Toast>;

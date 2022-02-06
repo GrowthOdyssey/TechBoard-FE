@@ -27,8 +27,8 @@ export const useUser = () => {
       .then(res => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
-        setToast({text: '登録が完了しました', status: 'success'})
         toTop();
+        setToast({text: '登録が完了しました', status: 'success'})
       })
       .catch(() => {
         const user: LoginUserType = {
@@ -39,8 +39,8 @@ export const useUser = () => {
           createdAt: '2022-01-01T00:00:00+09:00'
         };
         setLoginUser(user);
-        setToast({text: '登録が完了しました', status: 'success'})
         toTop();
+        setToast({text: '登録が完了しました', status: 'success'})
       })
   }, []);
 
@@ -56,8 +56,8 @@ export const useUser = () => {
       .then(res => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
-        setToast({text: 'ログインしました', status: 'success'})
         toTop();
+        setToast({text: 'ログインしました', status: 'success'})
       })
       .catch(() => {
         const user: LoginUserType = {
@@ -68,8 +68,8 @@ export const useUser = () => {
           createdAt: '2022-01-01T00:00:00+09:00'
         };
         setLoginUser(user);
-        setToast({text: 'ログインしました', status: 'success'})
         toTop();
+        setToast({text: 'ログインしました', status: 'success'})
       })
   }, []);
 
@@ -83,8 +83,8 @@ export const useUser = () => {
     axios.post(`${apiPath}/users/logout/${userId}`)
       .then(() => {
         setLoginUser({} as LoginUserType);
-        setToast({text: 'ログアウトしました', status: 'success'})
         toTop();
+        setToast({text: 'ログアウトしました', status: 'success'})
       });
   }, []);
 
