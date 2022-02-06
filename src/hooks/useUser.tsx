@@ -4,10 +4,12 @@ import { LoginUserType, useLoginUser } from '../providers/LoginUserProvider';
 import { apiPath } from '../variable';
 import { getAvatorId } from '../utility';
 import { useRedirect } from './useRedirect';
+import { useToast } from '../providers/ToastProvider';
 
 export const useUser = () => {
   const { setLoginUser } = useLoginUser();
   const { toTop } = useRedirect();
+  const { setToast } = useToast();
 
   /**
    * ユーザー登録API
@@ -26,6 +28,7 @@ export const useUser = () => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
         toTop();
+        setToast({text: '登録が完了しました', status: 'success'})
       })
       .catch(() => {
         const user: LoginUserType = {
@@ -37,6 +40,7 @@ export const useUser = () => {
         };
         setLoginUser(user);
         toTop();
+        setToast({text: '登録が完了しました', status: 'success'})
       })
   }, []);
 
@@ -53,6 +57,7 @@ export const useUser = () => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
         toTop();
+        setToast({text: 'ログインしました', status: 'success'})
       })
       .catch(() => {
         const user: LoginUserType = {
@@ -64,6 +69,7 @@ export const useUser = () => {
         };
         setLoginUser(user);
         toTop();
+        setToast({text: 'ログインしました', status: 'success'})
       })
   }, []);
 
@@ -78,6 +84,7 @@ export const useUser = () => {
       .then(() => {
         setLoginUser({} as LoginUserType);
         toTop();
+        setToast({text: 'ログアウトしました', status: 'success'})
       });
   }, []);
 
