@@ -25,7 +25,7 @@ export const BoardComment: VFC<props> = memo((props) => {
 });
 
 const _Comment = styled.li`
-  padding: 10px 20px;
+  padding: 10px 20px 20px;
   background: #fff;
   + li {
     border-top: 1px solid ${palette.border};
@@ -50,5 +50,7 @@ const _CommentUserId = styled.span`
 `;
 
 const _CommentContents = styled.div`
-  margin-top: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+  white-space: pre-line;
 `;

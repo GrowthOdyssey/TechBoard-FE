@@ -35,7 +35,11 @@ export const BoardTop: VFC = memo(() => {
           <Heading size={'4'}>最新のスレッド一覧</Heading>
           <ul className="list">
             {threadList.map((thread) => (
-              <BoardCard key={thread.threadId} data={thread} />
+              <BoardCard
+                key={thread.threadId}
+                data={thread}
+                category={categories.find((v) => v.id === thread.categoryId)?.name}
+              />
             ))}
           </ul>
         </section>
