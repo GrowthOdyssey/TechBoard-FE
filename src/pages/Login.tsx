@@ -2,6 +2,7 @@ import { VFC, memo, useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/common/Button';
 import { Form } from '../components/common/Form';
+import { Heading } from '../components/common/Heading';
 import { TextInput } from '../components/common/TextInput';
 import { useUser } from '../hooks/useUser';
 
@@ -14,16 +15,16 @@ export const Login: VFC = memo(() => {
   const onchangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
   return (
-    <>
-      <h1>Login</h1>
-      <Form>
-        <TextInput value={userId} placeholder={'ログインID'} onChange={onchangeUserId} />
-        <TextInput value={password} placeholder={'パスワード'} onChange={onchangePassword} />
-        <Button label={'ログイン'} onclick={() => login({ userId, password })} />
-        <Link to="/signup" className="link">
-          新規会員登録はこちら
-        </Link>
-      </Form>
-    </>
+    <Form>
+      <Heading size={'2'} isCenter>
+        Sign In
+      </Heading>
+      <TextInput value={userId} placeholder={'ログインID'} onChange={onchangeUserId} />
+      <TextInput value={password} placeholder={'パスワード'} onChange={onchangePassword} />
+      <Button label={'ログイン'} onclick={() => login({ userId, password })} />
+      <Link to="/signup" className="link">
+        新規会員登録はこちら
+      </Link>
+    </Form>
   );
 });

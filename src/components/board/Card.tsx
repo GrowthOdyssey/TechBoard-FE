@@ -45,20 +45,12 @@ const _Title = styled.p`
 `;
 
 const _Comment = styled.p`
-  position: relative;
-  height: 63px;
+  display: -webkit-box;
   color: #333;
   font-size: 14px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   overflow-y: hidden;
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 40px;
-    background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), #fff 100%);
-  }
 `;
 
 const _Category = styled.span`
