@@ -19,7 +19,7 @@ export const Top: VFC = memo(() => {
 
   return (
     <>
-      <Heading size={'1'}>TechBoard</Heading>
+      <Heading size={'2'}>TechBoardについて</Heading>
       <p>
         このサイトはエンジニアによるエンジニアのためのコミュニティサイトです。
         <br />
@@ -61,9 +61,9 @@ export const Top: VFC = memo(() => {
           </Heading>
           <_Description>
             <Heading size={'4'} isCenter={true}>
-              他のエンジニアと
+              雑談・相談・質問するための
               <br />
-              雑談・相談・質問するためのサービスです。
+              コミュニティサービスです。
             </Heading>
             <p>
               自分が分からないところ、意見を求めたいこと、とにかく話したい人など、自由に他のエンジニアとコミュニケーションを取りましょう。
@@ -108,7 +108,7 @@ const _Contents = styled.div`
 
 const _Description = styled.div`
   padding-top: 10px;
-  border-top: 1px solid ${palette.border};
+  border-top: 2px solid #164a84;
   > p {
     font-size: 14px;
   }

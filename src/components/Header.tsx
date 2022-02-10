@@ -1,7 +1,7 @@
 import { VFC, memo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { palette } from '../variable';
+import { imagePath, palette } from '../variable';
 import { LoginUserType } from '../providers/LoginUserProvider';
 import { ImageIcon } from './common/ImageIcon';
 import { AvatarIcon } from './common/AvatarIcon';
@@ -17,7 +17,7 @@ export const Header: VFC<props> = memo((props) => {
     <_Header>
       <_Inner>
         <Link to="/">
-          <_Title>TechBoard</_Title>
+          <_Logo src={`${imagePath}logo.svg`} width={180} height={50} />
         </Link>
         {loginUser.userId ? (
           <_Profile>
@@ -52,14 +52,12 @@ const _Inner = styled.div`
   align-items: center;
   justify-content: space-between;
   max-width: 1200px;
-  min-height: 50px;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const _Title = styled.h1`
-  font-size: 28px;
-  color: ${palette.black};
+const _Logo = styled.img`
+  vertical-align: top;
 `;
 
 const _Profile = styled.div`
