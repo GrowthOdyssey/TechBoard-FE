@@ -4,6 +4,7 @@ import { palette } from '../../variable';
 import SimpleMde from 'react-simplemde-editor';
 import { marked } from 'marked';
 import highlight from 'highlightjs';
+import DOMPurify from 'dompurify';
 import 'easymde/dist/easymde.min.css';
 import 'highlightjs/styles/docco.css';
 
@@ -28,7 +29,7 @@ export const MarkDownEditor: VFC<props> = memo((props) => {
       {isEdit ? (
         <SimpleMde value={value} onChange={onChange} />
       ) : (
-        <span dangerouslySetInnerHTML={{ __html: marked(value) }} />
+        <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(value)) }} />
       )}
     </_Markdown>
   );
