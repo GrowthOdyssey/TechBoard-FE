@@ -4,13 +4,14 @@ import { threadType } from '../types/board/thread';
 export const m_threads: threadType[] = [
   {
     threadId: '1',
-    threadTitle: 'スレッドタイトル',
+    threadTitle: 'HTMLに詳しい方、急募！！！',
     categoryId: '1',
     commentsCount: 100,
     comments: [
       {
         commentId: '1',
-        commentTitle: 'コメント',
+        commentTitle:
+          'エンジニアになろうと思って現在勉強初めて1週間なのですが、HTMLの書き方が分からなくて困っています！親切な方教えて下さい。・゜・(ノД`)・゜・。',
         userId: '1',
         userName: 'ニックネーム',
         sessionId: '1111',

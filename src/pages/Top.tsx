@@ -10,9 +10,10 @@ import { palette } from '../variable';
 import { useBoard } from '../hooks/useBoard';
 
 export const Top: VFC = memo(() => {
-  const { threadList, getThreadList } = useBoard();
+  const { categories, threadList, getThreadList, getCategories } = useBoard();
 
   useEffect(() => {
+    getCategories();
     getThreadList('1', '5');
   }, []);
 
@@ -78,7 +79,11 @@ export const Top: VFC = memo(() => {
           <Heading size={'4'}>最新のスレッド一覧</Heading>
           <ul className="list">
             {threadList.map((thread) => (
-              <BoardCard key={thread.threadId} data={thread} />
+              <BoardCard
+                key={thread.threadId}
+                data={thread}
+                category={categories.find((v) => v.id === thread.categoryId)?.name}
+              />
             ))}
           </ul>
         </_Contents>

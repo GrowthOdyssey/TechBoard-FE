@@ -2,9 +2,11 @@ import { VFC, memo, ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLoginUser } from '../providers/LoginUserProvider';
+import { useToast } from '../providers/ToastProvider';
 import { Breadcrumb } from './Breadcrumb';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { Toast } from './Toast';
 
 type props = {
   children: ReactNode;
@@ -14,10 +16,12 @@ type props = {
 export const Layout: VFC<props> = memo((props) => {
   const { children, isSideBar } = props;
   const { loginUser } = useLoginUser();
+  const { toast } = useToast();
   const { pathname } = useLocation();
 
   return (
     <>
+      {toast.text && <Toast />}
       <Header loginUser={loginUser} />
       <_Container>
         {pathname !== '/' && <Breadcrumb />}
