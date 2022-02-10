@@ -9,7 +9,10 @@ import { palette } from '../../variable';
 
 export const ArticleCreate: VFC = memo(() => {
   const [title, setTitle] = useState('');
+  const [markdown, setMarkdown] = useState('');
   const onchangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
+  const onChangeText = (value: string) => setMarkdown(value);
+
   return (
     <>
       <ArticleSideBar isVisible={'create'} />
@@ -23,7 +26,7 @@ export const ArticleCreate: VFC = memo(() => {
             onChange={onchangeTitle}
           />
           <Heading size={'4'}>記事内容</Heading>
-          <MarkDownEditor isEdit />
+          <MarkDownEditor isEdit value={markdown} onChange={onChangeText} />
         </_Form>
       </Contents>
     </>

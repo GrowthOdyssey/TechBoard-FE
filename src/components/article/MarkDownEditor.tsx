@@ -1,4 +1,4 @@
-import { memo, useState, VFC } from 'react';
+import { memo, VFC } from 'react';
 import styled from 'styled-components';
 import { palette } from '../../variable';
 import SimpleMde from 'react-simplemde-editor';
@@ -9,12 +9,12 @@ import 'highlightjs/styles/docco.css';
 
 type props = {
   isEdit: boolean;
+  value: string;
+  onChange: (value: string) => void;
 };
 
 export const MarkDownEditor: VFC<props> = memo((props) => {
-  const { isEdit } = props;
-  const [markdown, setMarkdown] = useState('');
-  const onChangeText = (value: string) => setMarkdown(value);
+  const { isEdit, value, onChange } = props;
 
   marked.setOptions({
     // 改行
@@ -26,9 +26,9 @@ export const MarkDownEditor: VFC<props> = memo((props) => {
   return (
     <_Markdown>
       {isEdit ? (
-        <SimpleMde value={markdown} onChange={onChangeText} />
+        <SimpleMde value={value} onChange={onChange} />
       ) : (
-        <span dangerouslySetInnerHTML={{ __html: marked(markdown) }} />
+        <span dangerouslySetInnerHTML={{ __html: marked(value) }} />
       )}
     </_Markdown>
   );
