@@ -1,14 +1,24 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { apiPath } from '../variable';
-import { articles } from '../mock/articleData';
+import { articles, m_article } from '../mock/articleData';
 import { useHistory } from 'react-router-dom';
 import { useToast } from '../providers/ToastProvider';
+import { articleDetailType } from '../types/article/articleDetailType';
 
 // prettier-ignore
 export const useArticle = () => {
   const history = useHistory();
   const { setToast } = useToast();
+  const [article, setArticle] = useState<articleDetailType>({
+    articleId: '',
+    articleTitle: '',
+    contents: '',
+    avatarId: '',
+    userName: '',
+    createdAt: '',
+    updatedAt: '',
+  });
   /**
    * 記事一覧取得API
    */
@@ -40,9 +50,14 @@ export const useArticle = () => {
 
   /**
    * 記事取得API
+   * @param  {string} articleId
+   * @return {articleDetailType}
    */
-  const getArticle = useCallback(() => {
-    //
+  const getArticle = useCallback((articleId: string) => {
+    axios
+      .get(`${apiPath}/articles/${articleId}`)
+      .then((res) => setArticle(res.data))
+      .catch(() => setArticle(m_article));
   }, []);
 
   /**
@@ -59,5 +74,5 @@ export const useArticle = () => {
     //
   }, []);
 
-  return { getArticleList, createArticle, getArticle, updateArticle, removeArticle };
+  return { article, getArticleList, createArticle, getArticle, updateArticle, removeArticle };
 };

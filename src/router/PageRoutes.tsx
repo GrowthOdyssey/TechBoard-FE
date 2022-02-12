@@ -40,6 +40,7 @@ export const pageRoutes = [
   {
     path: '/article/detail',
     exact: false,
+    sideBar: true,
     children: <ArticleDetail />,
   },
   {
