@@ -5,6 +5,7 @@ import { articles } from '../mock/articleData';
 import { useHistory } from 'react-router-dom';
 import { useToast } from '../providers/ToastProvider';
 
+// prettier-ignore
 export const useArticle = () => {
   const history = useHistory();
   const { setToast } = useToast();
@@ -23,26 +24,19 @@ export const useArticle = () => {
    * @param  {string} userId
    * @return {articleType}
    */
-  const createArticle = useCallback(
-    (accessToken: string, articleTitle: string, description: string, userId: string) => {
-      axios
-        .post(
-          `${apiPath}/articles/`,
-          { accessToken, articleTitle, description, userId },
-          { headers: { accessToken } }
-        )
-        .then((res) => {
-          history.push(`/article/detail/${res.data.articleId}/`);
-          setToast({ text: '記事を作成しました', status: 'success' });
-        })
-        // TODO: エラーハンドリング実装
-        .catch(() => {
-          history.push(`/article/detail/${articles[0].articleId}/`);
-          setToast({ text: '記事を作成しました', status: 'success' });
-        });
-    },
-    []
-  );
+  const createArticle = useCallback((accessToken: string, articleTitle: string, description: string, userId: string) => {
+    axios
+      .post(`${apiPath}/articles/`, { accessToken, articleTitle, description, userId }, { headers: { accessToken } })
+      .then((res) => {
+        history.push(`/article/detail/${res.data.articleId}/`);
+        setToast({ text: '記事を作成しました', status: 'success' });
+      })
+      // TODO: エラーハンドリング実装
+      .catch(() => {
+        history.push(`/article/detail/${articles[0].articleId}/`);
+        setToast({ text: '記事を作成しました', status: 'success' });
+      });
+  }, []);
 
   /**
    * 記事取得API
