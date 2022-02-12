@@ -9,7 +9,7 @@ import DOMPurify from 'dompurify';
 type props = {
   isEdit: boolean;
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
 };
 
 export const MarkDownEditor: VFC<props> = memo((props) => {
@@ -28,13 +28,22 @@ export const MarkDownEditor: VFC<props> = memo((props) => {
       {isEdit ? (
         <SimpleMde value={value} onChange={onChange} />
       ) : (
-        <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(value)) }} />
+        <span
+          className="content"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(value)) }}
+        />
       )}
     </_Markdown>
   );
 });
 
 const _Markdown = styled.div`
+  > .content > *:first-child {
+    margin-top: 0;
+  }
+  p + p {
+    margin-top: 1em;
+  }
   h1 {
     font-size: 34px;
   }
@@ -55,6 +64,7 @@ const _Markdown = styled.div`
   h3,
   h4,
   h5 {
+    margin: 1em 0 1.2em 0;
     font-weight: bold;
   }
   h1,
@@ -67,17 +77,13 @@ const _Markdown = styled.div`
   }
   ul {
     > li {
-      &::before {
-        content: '⚫︎';
-      }
+      list-style-type: disc;
       > ul {
         > li {
-          &::before {
-            content: '⚪︎';
-          }
+          list-style-type: circle;
           > ul {
-            > li::before {
-              content: '◼️';
+            > li {
+              list-style-type: square;
             }
           }
         }
@@ -90,23 +96,23 @@ const _Markdown = styled.div`
       counter-increment: num;
       &::before {
         content: counter(num) '.';
+        margin-right: 10px;
         font-size: 16px;
       }
     }
   }
+  ul,
+  ol {
+    margin: 1.5em 0;
+    ul,
+    ol {
+      margin: 0;
+    }
+  }
   li {
-    position: relative;
-    min-height: 24px;
-    padding-left: 1em;
+    list-style-position: inside;
     > ul {
       padding-left: 20px;
-    }
-    &::before {
-      position: absolute;
-      top: 5px;
-      left: 0;
-      margin-right: 4px;
-      font-size: 10px;
     }
   }
   blockquote {
