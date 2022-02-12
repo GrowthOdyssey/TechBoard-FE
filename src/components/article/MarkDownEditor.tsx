@@ -45,16 +45,16 @@ const _Markdown = styled.div`
     margin-top: 1em;
   }
   h1 {
-    font-size: 34px;
+    font-size: 28px;
   }
   h2 {
-    font-size: 30px;
+    font-size: 24px;
   }
   h3 {
-    font-size: 26px;
+    font-size: 22px;
   }
   h4 {
-    font-size: 22px;
+    font-size: 20px;
   }
   h5 {
     font-size: 18px;

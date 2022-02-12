@@ -22,7 +22,7 @@ export const ArticleDetail: VFC = memo(() => {
     <>
       <ArticleSideBar />
       <Contents>
-        <Heading size={'2'}>{article.articleTitle}</Heading>
+        <Heading size={'1'}>{article.articleTitle}</Heading>
         <_Author>
           <p className="user">
             <AvatarIcon avatorId={article.avatarId} alt="" width="36px" />
@@ -58,6 +58,7 @@ const _Author = styled.div`
   }
   > .date {
     color: ${palette.gray[1]};
+    font-size: 14px;
     > .label {
       margin: 0 8px 0 16px;
     }
