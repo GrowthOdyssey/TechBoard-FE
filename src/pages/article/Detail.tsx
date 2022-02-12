@@ -2,7 +2,7 @@ import { VFC, memo, useEffect } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import { MarkDownEditor } from '../../components/article/MarkDownEditor';
-import { BoardSideBar } from '../../components/board/SideBar';
+import { ArticleSideBar } from '../../components/article/SideBar';
 import { AvatarIcon } from '../../components/common/AvatarIcon';
 import { DateText } from '../../components/common/DateText';
 import { Heading } from '../../components/common/Heading';
@@ -20,12 +20,12 @@ export const ArticleDetail: VFC = memo(() => {
 
   return (
     <>
-      <BoardSideBar />
+      <ArticleSideBar />
       <Contents>
         <Heading size={'2'}>{article.articleTitle}</Heading>
         <_Author>
           <p className="user">
-            <AvatarIcon avatorId="001" alt="" width="20px" />
+            <AvatarIcon avatorId="149" alt="" width="36px" />
             <span className="name">{article.userName}</span>
           </p>
           <span className="date">
