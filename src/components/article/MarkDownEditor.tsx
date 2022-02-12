@@ -5,8 +5,6 @@ import SimpleMde from 'react-simplemde-editor';
 import { marked } from 'marked';
 import highlight from 'highlightjs';
 import DOMPurify from 'dompurify';
-import 'easymde/dist/easymde.min.css';
-import 'highlightjs/styles/docco.css';
 
 type props = {
   isEdit: boolean;
@@ -21,7 +19,8 @@ export const MarkDownEditor: VFC<props> = memo((props) => {
     // 改行
     breaks: true,
     // コードブロック
-    highlight: (code, lang) => highlight.highlightAuto(code, [lang.split(':')[0]]).value,
+    highlight: (code: string, lang: string) =>
+      highlight.highlightAuto(code, [lang.split(':')[0]]).value,
   });
 
   return (
