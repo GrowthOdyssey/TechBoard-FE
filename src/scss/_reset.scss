@@ -200,10 +200,6 @@ input {
 select {
   -webkit-appearance: none; /* ベンダープレフィックス(Google Chrome、Safari用) */
   -moz-appearance: none; /* ベンダープレフィックス(Firefox用) */
-  &::-ms-expand {
-    /* select要素のデザインを無効にする（IE用） */
-    // display: none;
-  }
 }
 
 br {
