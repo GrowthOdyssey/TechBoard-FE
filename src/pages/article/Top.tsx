@@ -1,11 +1,17 @@
-import { VFC, memo } from 'react';
+import { VFC, memo, useEffect } from 'react';
 import { ArticleCard } from '../../components/article/Card';
 import { ArticleSideBar } from '../../components/article/SideBar';
 import { Heading } from '../../components/common/Heading';
 import { Contents } from '../../components/Contents';
-import { articles } from '../../mock/articleData';
+import { useArticle } from '../../hooks/useArticle';
 
 export const ArticleTop: VFC = memo(() => {
+  const { articleList, getArticleList } = useArticle();
+
+  useEffect(() => {
+    getArticleList('1', '5');
+  }, []);
+
   return (
     <>
       <ArticleSideBar isVisible={'top'} />
@@ -14,7 +20,7 @@ export const ArticleTop: VFC = memo(() => {
         <section>
           <Heading size={'4'}>最新の記事一覧</Heading>
           <ul className="list">
-            {articles.map((article) => (
+            {articleList.map((article) => (
               <ArticleCard key={article.articleId} data={article} />
             ))}
           </ul>

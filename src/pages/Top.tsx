@@ -5,16 +5,18 @@ import { BoardCard } from '../components/board/Card';
 import { Heading } from '../components/common/Heading';
 import { Button } from '../components/common/Button';
 import { ArticleCard } from '../components/article/Card';
-import { articles } from '../mock/articleData';
 import { palette } from '../variable';
+import { useArticle } from '../hooks/useArticle';
 import { useBoard } from '../hooks/useBoard';
 
 export const Top: VFC = memo(() => {
+  const { articleList, getArticleList } = useArticle();
   const { categories, threadList, getThreadList, getCategories } = useBoard();
 
   useEffect(() => {
     getCategories();
     getThreadList('1', '5');
+    getArticleList('1', '5');
   }, []);
 
   return (
@@ -49,7 +51,7 @@ export const Top: VFC = memo(() => {
           </_LinkWrapper>
           <Heading size={'4'}>最新の記事一覧</Heading>
           <ul className="list">
-            {articles.map((article) => (
+            {articleList.map((article) => (
               <ArticleCard key={article.articleId} data={article} />
             ))}
           </ul>
