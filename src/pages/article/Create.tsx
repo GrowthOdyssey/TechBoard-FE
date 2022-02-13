@@ -19,7 +19,7 @@ export const ArticleCreate: VFC = memo(() => {
   const onchangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const onchangeText = (value: string) => setMarkdown(value);
   const onclickCreateArticle = () => {
-    createArticle(loginUser.accessToken, title, markdown, loginUser.userId);
+    createArticle(loginUser.accessToken, title, markdown);
   };
 
   return (

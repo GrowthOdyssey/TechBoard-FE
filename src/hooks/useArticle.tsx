@@ -1,10 +1,11 @@
 import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { apiPath } from '../variable';
-import { articles, m_article } from '../mock/articleData';
+import { m_articles, m_article } from '../mock/articleData';
 import { useHistory } from 'react-router-dom';
 import { useToast } from '../providers/ToastProvider';
 import { articleDetailType } from '../types/article/articleDetailType';
+import { articleType } from '../types/article/articleType';
 
 // prettier-ignore
 export const useArticle = () => {
@@ -19,31 +20,41 @@ export const useArticle = () => {
     createdAt: '',
     updatedAt: '',
   });
+  const [articleList, setArticleList] = useState<articleType[]>([]);
+
   /**
    * 記事一覧取得API
+   * @param  {string} page
+   * @param  {string} perPage
+   * @param  {string} userId
+   * @return {articleList}
    */
-  const getArticleList = useCallback(() => {
-    //
+  const getArticleList = useCallback((page: string, perPage: string, userId?: string) => {
+    const userQuery = userId ? `&userId=${userId}` : '';
+    axios
+      .get(`${apiPath}/articles?page=${page}&perPage=${perPage}${userQuery}`)
+      .then(res => setArticleList(res.data.articles))
+      // TODO: エラーハンドリング実装
+      .catch(() => setArticleList(m_articles))
   }, []);
 
   /**
    * 記事作成API
    * @param  {string} accessToken
    * @param  {string} title
-   * @param  {string} description
-   * @param  {string} userId
-   * @return {articleType}
+   * @param  {string} contents
+   * @return {articleId}
    */
-  const createArticle = useCallback((accessToken: string, articleTitle: string, description: string, userId: string) => {
+  const createArticle = useCallback((accessToken: string, articleTitle: string, contents: string) => {
     axios
-      .post(`${apiPath}/articles/`, { accessToken, articleTitle, description, userId }, { headers: { accessToken } })
+      .post(`${apiPath}/articles/`, { articleTitle, contents }, { headers: { accessToken } })
       .then((res) => {
         history.push(`/article/detail/${res.data.articleId}/`);
         setToast({ text: '記事を作成しました', status: 'success' });
       })
       // TODO: エラーハンドリング実装
       .catch(() => {
-        history.push(`/article/detail/${articles[0].articleId}/`);
+        history.push(`/article/detail/${articleList[0].articleId}/`);
         setToast({ text: '記事を作成しました', status: 'success' });
       });
   }, []);
@@ -74,5 +85,5 @@ export const useArticle = () => {
     //
   }, []);
 
-  return { article, getArticleList, createArticle, getArticle, updateArticle, removeArticle };
+  return { article, articleList, getArticleList, createArticle, getArticle, updateArticle, removeArticle };
 };

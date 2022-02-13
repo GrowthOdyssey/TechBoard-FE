@@ -1,6 +1,6 @@
 import { articleType } from '../types/article/articleType';
 
-export const articles: articleType[] = [
+export const m_articles: articleType[] = [
   {
     articleId: '1',
     articleTitle: '記事名1',
