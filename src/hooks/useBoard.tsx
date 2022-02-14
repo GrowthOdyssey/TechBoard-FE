@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { apiPath } from '../variable';
-import { m_categories, m_threads } from '../mock/boardData';
+import { m_categories, m_thread, m_threads } from '../mock/boardData';
 import { categoryType } from '../types/board/category';
-import { threadType } from '../types/board/thread';
+import { threadListType, threadType } from '../types/board/thread';
 import { useCookie } from './useCookie';
 import { useHistory } from 'react-router-dom';
 import { useToast } from '../providers/ToastProvider';
@@ -19,7 +19,6 @@ export const useBoard = () => {
       {
         commentId: '',
         commentTitle: '',
-        userId: '',
         userName: '',
         sessionId: '',
         createdAt: '',
@@ -28,7 +27,7 @@ export const useBoard = () => {
     createdAt: '',
     updatedAt: '',
   });
-  const [threadList, setThreadList] = useState<threadType[]>([]);
+  const [threadList, setThreadList] = useState<threadListType[]>([]);
   const [categories, setCategory] = useState<categoryType[]>([]);
   const { getSessionId } = useCookie();
   const { setToast } = useToast()
@@ -76,7 +75,7 @@ export const useBoard = () => {
   const getThread = useCallback((threadId: string) => {
     axios.get(`${apiPath}/threads/${threadId}`)
       .then(res => setThread(res.data))
-      .catch(() => setThread(m_threads[0]))
+      .catch(() => setThread(m_thread))
   }, []);
 
   /**
@@ -94,7 +93,7 @@ export const useBoard = () => {
       commentTitle: comment,
     };
     axios.post(`${apiPath}/threads/${threadId}/comments`, postData)
-    .then(res => {
+    .then(() => {
       // API動作後
       // thread.comments.push(res.data)
       // setThread({...thread})
@@ -103,7 +102,6 @@ export const useBoard = () => {
       thread.comments.push({
         commentId: `${thread.comments.length + 1}`,
         commentTitle: comment,
-        userId: '',
         userName: '',
         sessionId: postData.sessionId,
         createdAt: `${new Date()}`
@@ -114,7 +112,6 @@ export const useBoard = () => {
       thread.comments.push({
         commentId: `${thread.comments.length + 1}`,
         commentTitle: comment,
-        userId: '',
         userName: '',
         sessionId: postData.sessionId,
         createdAt: `${new Date()}`
@@ -129,8 +126,8 @@ export const useBoard = () => {
    * @return {categoryList}
    */
   const getCategories = useCallback(() => {
-    axios.get(`${apiPath}/category`)
-      .then(res => setCategory(res.data))
+    axios.get(`${apiPath}/threads/categories`)
+      .then(res => setCategory(res.data.categories))
       .catch(() => setCategory(m_categories))
   }, []);
 

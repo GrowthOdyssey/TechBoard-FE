@@ -28,12 +28,12 @@ export const BoardCreate: VFC = memo(() => {
       : setCategory(categories[selectedIndex - 1]);
   };
   const onchangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
-  const getCategory = () => categories.map((v) => v.name);
+  const getCategory = () => categories.map((v) => v.categoryName);
   const onclickCreateThread = () => {
-    if (category.id && title !== '') {
-      createThread(loginUser.accessToken, category.id, title);
+    if (category.categoryId && title !== '') {
+      createThread(loginUser.accessToken, category.categoryId, title);
     } else {
-      if (!category.id) alert('カテゴリーを選択して下さい');
+      if (!category.categoryId) alert('カテゴリーを選択して下さい');
       else if (title === '') alert('スレッドタイトルを入力して下さい。');
     }
   };

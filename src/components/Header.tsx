@@ -17,7 +17,7 @@ export const Header: VFC<props> = memo((props) => {
     <_Header>
       <_Inner>
         <Link to="/">
-          <_Logo src={`${imagePath}logo.svg`} width={180} height={50} />
+          <_Logo src={`${imagePath}logo.svg`} />
         </Link>
         {loginUser.userId ? (
           <_Profile>

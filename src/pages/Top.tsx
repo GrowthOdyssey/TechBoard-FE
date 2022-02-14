@@ -84,7 +84,7 @@ export const Top: VFC = memo(() => {
               <BoardCard
                 key={thread.threadId}
                 data={thread}
-                category={categories.find((v) => v.id === thread.categoryId)?.name}
+                category={categories.find((v) => v.categoryId === thread.categoryId)?.categoryName}
               />
             ))}
           </ul>

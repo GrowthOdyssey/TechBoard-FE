@@ -33,7 +33,7 @@ export const useArticle = () => {
     const userQuery = userId ? `&userId=${userId}` : '';
     axios
       .get(`${apiPath}/articles?page=${page}&perPage=${perPage}${userQuery}`)
-      .then(res => setArticleList(res.data.articles))
+      .then(res => setArticleList(m_articles)) // [WIP] レスポンスが設定されていないため一時的に入れ替え(m_articles⇄res.data.articles)
       // TODO: エラーハンドリング実装
       .catch(() => setArticleList(m_articles))
   }, []);

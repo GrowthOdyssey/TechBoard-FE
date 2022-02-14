@@ -16,10 +16,10 @@ export const BoardCategory: VFC = memo(() => {
   }, []);
 
   const getCategoryName = (id: string) => {
-    const target = categories.find((v) => v.id === id);
+    const target = categories.find((v) => v.categoryId === id);
     if (!target) return;
 
-    return target.name;
+    return target.categoryName;
   };
 
   return (

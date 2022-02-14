@@ -36,9 +36,11 @@ export const BoardDetail: VFC = memo(() => {
       <Contents>
         <Heading size={'2'}>{thread.threadTitle}</Heading>
         <_CommentList>
-          {thread.comments.map((comment) => (
-            <BoardComment key={comment.commentId} data={comment} />
-          ))}
+          {thread.comments
+            ? thread.comments.map((comment) => (
+                <BoardComment key={comment.commentId} data={comment} />
+              ))
+            : 'まだコメントが投稿されていません。'}
         </_CommentList>
         <_CommentForm>
           <Heading size={'4'}>コメントを投稿する</Heading>
