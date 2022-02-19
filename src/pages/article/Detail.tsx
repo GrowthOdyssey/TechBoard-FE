@@ -1,9 +1,11 @@
 import { VFC, memo, useEffect } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { MarkDownEditor } from '../../components/article/MarkDownEditor';
 import { ArticleSideBar } from '../../components/article/SideBar';
 import { AvatarIcon } from '../../components/common/AvatarIcon';
+import { Button } from '../../components/common/Button';
 import { DateText } from '../../components/common/DateText';
 import { Heading } from '../../components/common/Heading';
 import { Contents } from '../../components/Contents';
@@ -38,11 +40,21 @@ export const ArticleDetail: VFC = memo(() => {
         <_Content>
           <MarkDownEditor isEdit={false} value={article.contents} />
         </_Content>
+        <_Buttons>
+          <Link to={`/article/edit/${id}`}>
+            <Button label={'編集'} />
+          </Link>
+        </_Buttons>
       </Contents>
     </>
   );
 });
 
+const _Buttons = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+`;
 const _Author = styled.div`
   display: flex;
   align-items: flex-end;

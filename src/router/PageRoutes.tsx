@@ -1,5 +1,6 @@
 import { ArticleCreate } from '../pages/article/Create';
 import { ArticleDetail } from '../pages/article/Detail';
+import { ArticleEdit } from '../pages/article/Edit';
 import { ArticleTop } from '../pages/article/Top';
 import { BoardCategory } from '../pages/board/Category';
 import { BoardCreate } from '../pages/board/Create';
@@ -38,10 +39,16 @@ export const pageRoutes = [
     children: <ArticleCreate />,
   },
   {
-    path: '/article/detail',
+    path: '/article/detail/:id',
     exact: false,
     sideBar: true,
     children: <ArticleDetail />,
+  },
+  {
+    path: '/article/edit/:id',
+    exact: false,
+    sideBar: true,
+    children: <ArticleEdit />,
   },
   {
     path: '/board/',
