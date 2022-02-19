@@ -44,13 +44,13 @@ export const pageRoutes = [
     children: <ArticleDetail />,
   },
   {
-    path: '/board/',
+    path: '/board/page=:page',
     exact: true,
     sideBar: true,
     children: <BoardTop />,
   },
   {
-    path: '/board/category/:categoryId',
+    path: '/board/category/:categoryId/page=:page',
     exact: false,
     sideBar: true,
     children: <BoardCategory />,

@@ -28,6 +28,7 @@ export const useBoard = () => {
     updatedAt: '',
   });
   const [threadList, setThreadList] = useState<threadListType[]>([]);
+  const [threadLength, setThreadLength] = useState(0);
   const [categories, setCategory] = useState<categoryType[]>([]);
   const { getSessionId } = useCookie();
   const { setToast } = useToast()
@@ -44,7 +45,9 @@ export const useBoard = () => {
     const categoryQuery = categoryId ? `categoryId=${categoryId}` : '';
     axios.get(`${apiPath}/threads?${categoryQuery}&page=${page}&perPage=${perPage}`)
       .then(res => {
-        const pagingData = getPaging(page, perPage, res.data.threads)
+        const threads = res.data.threads;
+        setThreadLength(threads.length)
+        const pagingData = getPaging(page, perPage, threads)
         setThreadList(pagingData)
       })
       .catch(() => setThreadList([]))
@@ -113,6 +116,7 @@ export const useBoard = () => {
   return {
     thread,
     threadList,
+    threadLength,
     categories,
     getThreadList,
     createThread,

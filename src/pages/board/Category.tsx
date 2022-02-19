@@ -3,17 +3,19 @@ import { useParams } from 'react-router-dom';
 import { BoardCard } from '../../components/board/Card';
 import { BoardSideBar } from '../../components/board/SideBar';
 import { Heading } from '../../components/common/Heading';
+import { Pagination } from '../../components/common/Pagination';
 import { Contents } from '../../components/Contents';
 import { useBoard } from '../../hooks/useBoard';
+import { perPage } from '../../variable';
 
 export const BoardCategory: VFC = memo(() => {
-  const { categoryId } = useParams<{ categoryId: string }>();
-  const { threadList, categories, getThreadList, getCategories } = useBoard();
+  const { threadList, threadLength, categories, getThreadList, getCategories } = useBoard();
+  const { categoryId, page } = useParams<{ categoryId: string; page: string }>();
 
   useEffect(() => {
     getCategories();
-    getThreadList('1', '20', categoryId);
-  }, []);
+    getThreadList(page, `${perPage}`, categoryId);
+  }, [page, categoryId]);
 
   const getCategoryName = (id: string) => {
     const target = categories.find((v) => v.categoryId === id);
@@ -34,6 +36,7 @@ export const BoardCategory: VFC = memo(() => {
             ))}
           </ul>
         </section>
+        <Pagination path={`/board/category/${categoryId}`} page={page} length={threadLength} />
       </Contents>
     </>
   );
