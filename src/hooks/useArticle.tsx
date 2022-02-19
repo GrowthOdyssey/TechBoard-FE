@@ -83,7 +83,7 @@ export const useArticle = () => {
       })
       // TODO: エラーハンドリング実装
       .catch(() => {
-        history.push(`/article/detail/${articleList[0].articleId}/`);
+        history.push(`/article/detail/${articleId}/`);
         setToast({ text: '記事を更新しました', status: 'success' });
       });
   }, []);
