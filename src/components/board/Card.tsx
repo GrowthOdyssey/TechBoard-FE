@@ -1,17 +1,17 @@
 import { VFC, memo } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { threadType } from '../../types/board/thread';
+import { threadListType } from '../../types/board/thread';
 import { palette } from '../../variable';
 import { DateText } from '../common/DateText';
 
 type props = {
-  data: threadType;
+  data: threadListType;
   category?: string;
 };
 
 export const BoardCard: VFC<props> = memo((props) => {
-  const { threadId, threadTitle, commentsCount, comments, updatedAt } = props.data;
+  const { threadId, threadTitle, firstComment, commentsCount, updatedAt } = props.data;
   const { category } = props;
 
   return (
@@ -21,7 +21,7 @@ export const BoardCard: VFC<props> = memo((props) => {
         <_Title>
           {threadTitle}（{commentsCount}）
         </_Title>
-        <_Comment>{comments[0].commentTitle}</_Comment>
+        <_Comment>{firstComment}</_Comment>
         <_Date>
           <DateText time={true}>{updatedAt}</DateText>
         </_Date>

@@ -25,8 +25,8 @@ export const BoardTop: VFC = memo(() => {
           <Heading size={'4'}>カテゴリー一覧</Heading>
           <_CategoryList>
             {categories.map((category) => (
-              <Link to={`/board/category/${category.id}/`} key={category.id}>
-                {category.name}
+              <Link to={`/board/category/${category.categoryId}/`} key={category.categoryId}>
+                {category.categoryName}
               </Link>
             ))}
           </_CategoryList>
@@ -38,7 +38,7 @@ export const BoardTop: VFC = memo(() => {
               <BoardCard
                 key={thread.threadId}
                 data={thread}
-                category={categories.find((v) => v.id === thread.categoryId)?.name}
+                category={categories.find((v) => v.categoryId === thread.categoryId)?.categoryName}
               />
             ))}
           </ul>
