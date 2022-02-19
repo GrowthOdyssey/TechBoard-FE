@@ -11,7 +11,7 @@ export const BoardSideBar: VFC<props> = memo((props) => {
 
   return (
     <SideBar>
-      <Link className={isVisible === 'top' ? 'is-active' : ''} to="/board/">
+      <Link className={isVisible === 'top' ? 'is-active' : ''} to="/board/page=1">
         掲示板TOP
       </Link>
       <Link className={isVisible === 'create' ? 'is-active' : ''} to="/board/create/">

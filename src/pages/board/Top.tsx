@@ -1,20 +1,22 @@
 import { VFC, memo, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { BoardCard } from '../../components/board/Card';
 import { BoardSideBar } from '../../components/board/SideBar';
 import { Heading } from '../../components/common/Heading';
+import { Pagination } from '../../components/common/Pagination';
 import { Contents } from '../../components/Contents';
 import { useBoard } from '../../hooks/useBoard';
-import { palette } from '../../variable';
+import { palette, perPage } from '../../variable';
 
 export const BoardTop: VFC = memo(() => {
-  const { threadList, categories, getThreadList, getCategories } = useBoard();
+  const { threadList, threadLength, categories, getThreadList, getCategories } = useBoard();
+  const { page } = useParams<{ page: string }>();
 
   useEffect(() => {
     getCategories();
-    getThreadList('1', '20');
-  }, []);
+    getThreadList(page, `${perPage}`);
+  }, [page]);
 
   return (
     <>
@@ -25,7 +27,7 @@ export const BoardTop: VFC = memo(() => {
           <Heading size={'4'}>カテゴリー一覧</Heading>
           <_CategoryList>
             {categories.map((category) => (
-              <Link to={`/board/category/${category.categoryId}/`} key={category.categoryId}>
+              <Link to={`/board/category/${category.categoryId}/page=1`} key={category.categoryId}>
                 {category.categoryName}
               </Link>
             ))}
@@ -43,6 +45,7 @@ export const BoardTop: VFC = memo(() => {
             ))}
           </ul>
         </section>
+        <Pagination path={'/board'} page={page} length={threadLength} />
       </Contents>
     </>
   );

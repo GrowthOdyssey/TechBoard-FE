@@ -42,7 +42,7 @@ export const Breadcrumb: VFC = memo(() => {
       }
     } else if (path.includes('board')) {
       childPaths.push({
-        path: '/board',
+        path: '/board/page=1',
         label: 'Board',
       });
       if (path.includes('category')) {
