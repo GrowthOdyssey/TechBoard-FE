@@ -9,12 +9,12 @@ type props = {
 };
 
 export const BoardComment: VFC<props> = memo((props) => {
-  const { commentId, commentTitle, userName, sessionId, createdAt } = props.data;
+  const { commentTitle, userName, sessionId, createdAt } = props.data;
 
   return (
     <_Comment>
       <_CommentHead>
-        <_CommentId>{commentId}.</_CommentId>
+        <_CommentId />
         <_CommentUserName>{userName ? userName : '名無しさん'}</_CommentUserName>
         <DateText time={true}>{createdAt}</DateText>
         <_CommentUserId>ID:{sessionId}</_CommentUserId>
@@ -27,6 +27,7 @@ export const BoardComment: VFC<props> = memo((props) => {
 const _Comment = styled.li`
   padding: 10px 20px 20px;
   background: #fff;
+  counter-increment: num;
   + li {
     border-top: 1px solid ${palette.border};
   }
@@ -37,11 +38,14 @@ const _CommentHead = styled.div`
 `;
 
 const _CommentId = styled.span`
-  margin-right: 5px;
+  &::before {
+    content: counter(num) '.';
+  }
 `;
 
 const _CommentUserName = styled.span`
   color: #0000cd;
+  margin-left: 5px;
   margin-right: 10px;
 `;
 

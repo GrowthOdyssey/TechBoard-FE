@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { apiPath } from '../variable';
-import { m_categories, m_thread, m_threads } from '../mock/boardData';
 import { categoryType } from '../types/board/category';
 import { threadListType, threadType } from '../types/board/thread';
 import { useCookie } from './useCookie';
 import { useHistory } from 'react-router-dom';
 import { useToast } from '../providers/ToastProvider';
+import { getPaging } from '../utility';
 
 // prettier-ignore
 export const useBoard = () => {
@@ -43,8 +43,11 @@ export const useBoard = () => {
   const getThreadList = useCallback((page: string, perPage: string, categoryId?: string) => {
     const categoryQuery = categoryId ? `categoryId=${categoryId}` : '';
     axios.get(`${apiPath}/threads?${categoryQuery}&page=${page}&perPage=${perPage}`)
-      .then(res => setThreadList(res.data.threads))
-      .catch(() => setThreadList(m_threads))
+      .then(res => {
+        const pagingData = getPaging(page, perPage, res.data.threads)
+        setThreadList(pagingData)
+      })
+      .catch(() => setThreadList([]))
   }, []);
 
   /**
@@ -55,16 +58,12 @@ export const useBoard = () => {
    * @return {threadType}
    */
   const createThread = useCallback((accessToken: string, categoryId: string, threadTitle: string) => {
-    axios.post(`${apiPath}/threads/`, {categoryId, threadTitle} , {headers: {accessToken}})
+    axios.post(`${apiPath}/threads`, {categoryId, threadTitle} , {headers: {accessToken}})
       .then(res => {
-        // res.data new thread
-        history.push(`/board/detail/${res.data.threadId}/`)
+        history.push(`/board/detail/${res.data.threadId}`)
         setToast({text: 'スレッドを作成しました', status: 'success'})
       })
-      .catch(() => {
-        history.push(`/board/detail/${m_threads[0].threadId}/`)
-        setToast({text: 'スレッドを作成しました', status: 'success'})
-      })
+      .catch(() => setToast({text: 'スレッドを作成できませんでした', status: 'error'}))
   }, []);
 
   /**
@@ -75,7 +74,7 @@ export const useBoard = () => {
   const getThread = useCallback((threadId: string) => {
     axios.get(`${apiPath}/threads/${threadId}`)
       .then(res => setThread(res.data))
-      .catch(() => setThread(m_thread))
+      // .catch(() => setThread(null))
   }, []);
 
   /**
@@ -93,31 +92,11 @@ export const useBoard = () => {
       commentTitle: comment,
     };
     axios.post(`${apiPath}/threads/${threadId}/comments`, postData)
-    .then(() => {
-      // API動作後
-      // thread.comments.push(res.data)
-      // setThread({...thread})
-
-      // デバッグ用
-      thread.comments.push({
-        commentId: `${thread.comments.length + 1}`,
-        commentTitle: comment,
-        userName: '',
-        sessionId: postData.sessionId,
-        createdAt: `${new Date()}`
-      })
+    .then((res) => {
+      thread.comments.push(res.data)
       setThread({...thread})
     })
-    .catch(() => {
-      thread.comments.push({
-        commentId: `${thread.comments.length + 1}`,
-        commentTitle: comment,
-        userName: '',
-        sessionId: postData.sessionId,
-        createdAt: `${new Date()}`
-      })
-      setThread({...thread})
-    })
+    .catch(() => setToast({text: 'コメント投稿に失敗しました', status: 'error'}))
   }, [thread]);
 
   /**
@@ -128,7 +107,7 @@ export const useBoard = () => {
   const getCategories = useCallback(() => {
     axios.get(`${apiPath}/threads/categories`)
       .then(res => setCategory(res.data.categories))
-      .catch(() => setCategory(m_categories))
+      .catch(() => setCategory([]))
   }, []);
 
   return {

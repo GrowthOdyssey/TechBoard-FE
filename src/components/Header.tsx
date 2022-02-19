@@ -5,6 +5,7 @@ import { imagePath, palette } from '../variable';
 import { LoginUserType } from '../providers/LoginUserProvider';
 import { ImageIcon } from './common/ImageIcon';
 import { AvatarIcon } from './common/AvatarIcon';
+import { useUser } from '../hooks/useUser';
 
 type props = {
   loginUser: LoginUserType;
@@ -12,6 +13,7 @@ type props = {
 
 export const Header: VFC<props> = memo((props) => {
   const { loginUser } = props;
+  const { logout } = useUser();
 
   return (
     <_Header>
@@ -21,8 +23,11 @@ export const Header: VFC<props> = memo((props) => {
         </Link>
         {loginUser.userId ? (
           <_Profile>
-            <AvatarIcon avatorId={loginUser.avatarId} alt={loginUser.userName} width={'50px'} />
+            <AvatarIcon avatarId={loginUser.avatarId} alt={loginUser.userName} width={'50px'} />
             <span>{loginUser.userName}</span>
+            <_LogoutBtn onClick={() => logout(loginUser.accessToken)}>
+              <ImageIcon src={'ico_logout.svg'} alt={'ログアウト'} width={'25px'} />
+            </_LogoutBtn>
           </_Profile>
         ) : (
           <_Menu>
@@ -83,4 +88,8 @@ const _Menu = styled.div`
       margin-left: 10px;
     }
   }
+`;
+
+const _LogoutBtn = styled.button`
+  margin-left: 20px;
 `;

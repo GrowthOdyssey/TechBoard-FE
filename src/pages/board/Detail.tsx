@@ -67,7 +67,9 @@ export const BoardDetail: VFC = memo(() => {
   );
 });
 
-const _CommentList = styled.ul``;
+const _CommentList = styled.ul`
+  counter-reset: num;
+`;
 
 const _CommentForm = styled.div`
   margin-top: 30px;

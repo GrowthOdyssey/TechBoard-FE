@@ -1,9 +1,11 @@
-export const getAvatorId = () => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+export const getAvatarId = () => {
   const pokemonLength = 151;
   const random = `${Math.floor(Math.random() * pokemonLength) + 1}`;
-  const avatorId = random.padStart(3, '0');
+  const avatarId = random.padStart(3, '0');
 
-  return avatorId;
+  return avatarId;
 };
 
 export const getRandomId = (length: number) => {
@@ -14,4 +16,13 @@ export const getRandomId = (length: number) => {
   }
 
   return randomId;
+};
+
+// prettier-ignore
+export const getPaging = (page: string, perPage: string, datas: any[]) => {
+  const pagingData = datas.reduce((acc: [], value, index: number) =>
+    index % Number(perPage) ?
+      acc : [...acc, datas.slice(index, index + Number(perPage))], []);
+
+  return pagingData[Number(page) - 1];
 };

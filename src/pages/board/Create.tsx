@@ -44,7 +44,7 @@ export const BoardCreate: VFC = memo(() => {
       <Contents>
         <Heading size={'2'}>スレッド新規作成</Heading>
         {!loginUser.userId && <p>スレッドを作成するにはログインして下さい。</p>}
-        <_Form>
+        <_Form className={!loginUser.userId ? 'is-disabled' : ''}>
           <Select
             options={getCategory()}
             name={'category'}
@@ -74,6 +74,10 @@ const _Form = styled.div`
   border: solid 1px ${palette.border};
   border-radius: 4px;
   text-align: center;
+  &.is-disabled {
+    opacity: 0.7;
+    pointer-events: none;
+  }
   .textInput {
     width: 100%;
     margin-top: 20px;

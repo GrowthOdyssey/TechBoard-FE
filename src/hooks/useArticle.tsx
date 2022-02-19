@@ -67,7 +67,7 @@ export const useArticle = () => {
   const getArticle = useCallback((articleId: string) => {
     axios
       .get(`${apiPath}/articles/${articleId}`)
-      .then((res) => setArticle(res.data))
+      .then((res) => setArticle(m_article)) // [WIP] レスポンスが設定されていないため一時的に入れ替え(m_article⇄res.data.article)
       .catch(() => setArticle(m_article));
   }, []);
 

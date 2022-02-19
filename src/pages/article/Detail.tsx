@@ -25,7 +25,7 @@ export const ArticleDetail: VFC = memo(() => {
         <Heading size={'1'}>{article.articleTitle}</Heading>
         <_Author>
           <p className="user">
-            <AvatarIcon avatorId={article.avatarId} alt="" width="36px" />
+            <AvatarIcon avatarId={article.avatarId} alt="" width="36px" />
             <span className="name">{article.userName}</span>
           </p>
           <span className="date">
