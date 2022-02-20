@@ -40,9 +40,7 @@ export const Pagination: VFC<props> = memo((props) => {
           : Number(page) - 2 > 0 && pagination - Number(page) >= 2
           ? [...Array(paginationLength)].map((v, i) => (
               <li key={i} className={i === 2 ? 'is-active' : ''}>
-                <Link to={`${path}/${pagePrefix}${Number(page) + (i - 2)}`}>
-                  {Number(page) + (i - 2)}
-                </Link>
+                <Link to={`${path}/${pagePrefix}${Number(page) + (i - 2)}`}>{Number(page) + (i - 2)}</Link>
               </li>
             ))
           : Number(page) - 2 <= 0
@@ -53,9 +51,7 @@ export const Pagination: VFC<props> = memo((props) => {
             ))
           : [...Array(paginationLength)].map((v, i) => (
               <li key={i} className={Number(page) === pagination + (i - 4) ? 'is-active' : ''}>
-                <Link to={`${path}/${pagePrefix}${pagination + (i - 4)}`}>
-                  {pagination + (i - 4)}
-                </Link>
+                <Link to={`${path}/${pagePrefix}${pagination + (i - 4)}`}>{pagination + (i - 4)}</Link>
               </li>
             ))}
 

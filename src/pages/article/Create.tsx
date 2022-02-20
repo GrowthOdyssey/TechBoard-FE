@@ -30,18 +30,10 @@ export const ArticleCreate: VFC = memo(() => {
         {!loginUser.userId && <p>記事を作成するにはログインして下さい。</p>}
         <_Form>
           <Heading size={'4'}>Title</Heading>
-          <TextInput
-            value={title}
-            placeholder={'Titleを入力してください'}
-            onChange={onchangeTitle}
-          />
+          <TextInput value={title} placeholder={'Titleを入力してください'} onChange={onchangeTitle} />
           <Heading size={'4'}>記事内容</Heading>
           <MarkDownEditor isEdit value={markdown} onChange={onchangeText} />
-          <Button
-            label={'作成'}
-            onclick={onclickCreateArticle}
-            isDisabled={loginUser.userId ? false : true}
-          />
+          <Button label={'作成'} onclick={onclickCreateArticle} isDisabled={loginUser.userId ? false : true} />
         </_Form>
       </Contents>
     </>

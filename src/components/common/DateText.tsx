@@ -33,9 +33,7 @@ export const DateText: VFC<props> = memo((props) => {
     const date = new Date(text as string);
 
     return time
-      ? `${formatYear(date)}/${formatMonth(date)}/${formatDate(date)}(${formatDay(
-          date
-        )}) ${formatTime(date)}`
+      ? `${formatYear(date)}/${formatMonth(date)}/${formatDate(date)}(${formatDay(date)}) ${formatTime(date)}`
       : `${formatYear(date)}/${formatMonth(date)}/${formatDate(date)}(${formatDay(date)})`;
   };
 
