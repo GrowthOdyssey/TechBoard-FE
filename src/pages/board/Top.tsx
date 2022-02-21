@@ -31,7 +31,7 @@ export const BoardTop: VFC = memo(() => {
             <Heading size={'4'}>カテゴリー一覧</Heading>
             <_CategoryList>
               {categories.map((category) => (
-                <Link to={`/board/category/${category.categoryId}/page=1`} key={category.categoryId}>
+                <Link to={`/board/${category.categoryName}/page=1`} key={category.categoryId}>
                   {category.categoryName}
                 </Link>
               ))}

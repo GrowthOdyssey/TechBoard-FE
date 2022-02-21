@@ -11,18 +11,21 @@ import { perPage } from '../../variable';
 
 export const BoardCategory: VFC = memo(() => {
   const { threadList, threadLength, categories, loading, getThreadList, getCategories } = useBoard();
-  const { categoryId, page } = useParams<{ categoryId: string; page: string }>();
+  const { categoryName, page } = useParams<{ categoryName: string; page: string }>();
 
   useEffect(() => {
     getCategories();
-    getThreadList(page, `${perPage}`, categoryId);
-  }, [page, categoryId]);
+  }, [page, categoryName]);
 
-  const getCategoryName = (id: string) => {
-    const target = categories.find((v) => v.categoryId === id);
+  useEffect(() => {
+    if (categories.length) getThreadList(page, `${perPage}`, getCategoryId(categoryName));
+  }, [categories]);
+
+  const getCategoryId = (name: string) => {
+    const target = categories.find((v) => v.categoryName === name);
     if (!target) return;
 
-    return target.categoryName;
+    return target.categoryId;
   };
 
   return (
@@ -32,7 +35,7 @@ export const BoardCategory: VFC = memo(() => {
         <Loading />
       ) : (
         <Contents>
-          <Heading size={'2'}>{getCategoryName(categoryId)}のスレッド一覧</Heading>
+          <Heading size={'2'}>{categoryName}のスレッド一覧</Heading>
           <section>
             {threadList.length ? (
               <ul className="list">
@@ -44,7 +47,7 @@ export const BoardCategory: VFC = memo(() => {
               <p>スレッドがまだ作成されていません</p>
             )}
           </section>
-          {threadLength ? <Pagination path={`/board/category/${categoryId}`} page={page} length={threadLength} /> : ''}
+          {threadLength ? <Pagination path={`/board/${categoryName}`} page={page} length={threadLength} /> : ''}
         </Contents>
       )}
     </>

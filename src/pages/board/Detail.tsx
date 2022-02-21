@@ -40,7 +40,7 @@ export const BoardDetail: VFC = memo(() => {
         <Contents>
           <Heading size={'2'}>{thread.threadTitle}</Heading>
           <_CommentList>
-            {thread.comments
+            {thread.comments.length
               ? thread.comments.map((comment) => <BoardComment key={comment.commentId} data={comment} />)
               : 'まだコメントが投稿されていません。'}
           </_CommentList>

@@ -50,7 +50,7 @@ export const pageRoutes = [
     children: <BoardTop />,
   },
   {
-    path: '/board/category/:categoryId/page=:page',
+    path: '/board/:categoryName/page=:page',
     exact: false,
     sideBar: true,
     children: <BoardCategory />,

@@ -45,20 +45,20 @@ export const Breadcrumb: VFC = memo(() => {
         path: '/board/page=1',
         label: 'Board',
       });
-      if (path.includes('category')) {
+      if (path.includes('create')) {
         childPaths.push({
-          path: '/board/category/',
-          label: 'カテゴリースレッド一覧',
-        });
-      } else if (path.includes('create')) {
-        childPaths.push({
-          path: '/board/create/',
+          path: '/board/create',
           label: 'スレッド作成',
         });
       } else if (path.includes('detail')) {
         childPaths.push({
-          path: '/board/detail/',
+          path: '/board/detail',
           label: 'スレッド',
+        });
+      } else if (path.split('/').length === 4 && path.includes('/page=')) {
+        childPaths.push({
+          path: '/board/category',
+          label: 'カテゴリースレッド一覧',
         });
       }
     }
