@@ -10,11 +10,13 @@ import { DateText } from '../../components/common/DateText';
 import { Heading } from '../../components/common/Heading';
 import { Contents } from '../../components/Contents';
 import { useArticle } from '../../hooks/useArticle';
+import { useLoginUser } from '../../providers/LoginUserProvider';
 import { palette } from '../../variable';
 
 export const ArticleDetail: VFC = memo(() => {
   const { id } = useParams<{ id: string }>();
   const { article, getArticle } = useArticle();
+  const { loginUser } = useLoginUser();
 
   useEffect(() => {
     getArticle(id);
@@ -40,11 +42,13 @@ export const ArticleDetail: VFC = memo(() => {
         <_Content>
           <MarkDownEditor isEdit={false} value={article.contents} />
         </_Content>
-        <_Buttons>
-          <Link to={`/article/edit/${id}`}>
-            <Button label={'編集'} />
-          </Link>
-        </_Buttons>
+        {loginUser.userId == article.articleId && (
+          <_Buttons>
+            <Link to={`/article/edit/${id}`}>
+              <Button label={'編集'} />
+            </Link>
+          </_Buttons>
+        )}
       </Contents>
     </>
   );

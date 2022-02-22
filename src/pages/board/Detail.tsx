@@ -37,9 +37,7 @@ export const BoardDetail: VFC = memo(() => {
         <Heading size={'2'}>{thread.threadTitle}</Heading>
         <_CommentList>
           {thread.comments
-            ? thread.comments.map((comment) => (
-                <BoardComment key={comment.commentId} data={comment} />
-              ))
+            ? thread.comments.map((comment) => <BoardComment key={comment.commentId} data={comment} />)
             : 'まだコメントが投稿されていません。'}
         </_CommentList>
         <_CommentForm>
@@ -48,18 +46,9 @@ export const BoardDetail: VFC = memo(() => {
             <span>ニックネーム</span>
             <input type="text" value={getUserName()} disabled />
           </_CommentUserName>
-          <Textarea
-            value={comment}
-            placeholder={'コメントを入力してください'}
-            rows={5}
-            onChange={onchangeSetComment}
-          />
+          <Textarea value={comment} placeholder={'コメントを入力してください'} rows={5} onChange={onchangeSetComment} />
           <_CommentSubmit>
-            <Button
-              label={'コメントを投稿'}
-              onclick={submitComment}
-              isDisabled={comment.length === 0 ? true : false}
-            />
+            <Button label={'コメントを投稿'} onclick={submitComment} isDisabled={comment.length === 0 ? true : false} />
           </_CommentSubmit>
         </_CommentForm>
       </Contents>

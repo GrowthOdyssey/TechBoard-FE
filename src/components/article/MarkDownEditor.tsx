@@ -19,8 +19,7 @@ export const MarkDownEditor: VFC<props> = memo((props) => {
     // 改行
     breaks: true,
     // コードブロック
-    highlight: (code: string, lang: string) =>
-      highlight.highlightAuto(code, [lang.split(':')[0]]).value,
+    highlight: (code: string, lang: string) => highlight.highlightAuto(code, [lang.split(':')[0]]).value,
   });
 
   return (
@@ -28,10 +27,7 @@ export const MarkDownEditor: VFC<props> = memo((props) => {
       {isEdit ? (
         <SimpleMde value={value} onChange={onChange} />
       ) : (
-        <span
-          className="content"
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(value)) }}
-        />
+        <span className="content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(value)) }} />
       )}
     </_Markdown>
   );

@@ -23,9 +23,7 @@ export const BoardCreate: VFC = memo(() => {
 
   const onchangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedIndex = e.target.selectedIndex;
-    selectedIndex === 0
-      ? setCategory({} as categoryType)
-      : setCategory(categories[selectedIndex - 1]);
+    selectedIndex === 0 ? setCategory({} as categoryType) : setCategory(categories[selectedIndex - 1]);
   };
   const onchangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const getCategory = () => categories.map((v) => v.categoryName);
@@ -45,22 +43,9 @@ export const BoardCreate: VFC = memo(() => {
         <Heading size={'2'}>スレッド新規作成</Heading>
         {!loginUser.userId && <p>スレッドを作成するにはログインして下さい。</p>}
         <_Form>
-          <Select
-            options={getCategory()}
-            name={'category'}
-            onChange={onchangeCategory}
-            hdg={'カテゴリー'}
-          />
-          <TextInput
-            value={title}
-            placeholder={'スレッド名を入力してください'}
-            onChange={onchangeTitle}
-          />
-          <Button
-            label={'作成'}
-            onclick={onclickCreateThread}
-            isDisabled={loginUser.userId ? false : true}
-          />
+          <Select options={getCategory()} name={'category'} onChange={onchangeCategory} hdg={'カテゴリー'} />
+          <TextInput value={title} placeholder={'スレッド名を入力してください'} onChange={onchangeTitle} />
+          <Button label={'作成'} onclick={onclickCreateThread} isDisabled={loginUser.userId ? false : true} />
         </_Form>
       </Contents>
     </>

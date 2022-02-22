@@ -8,7 +8,7 @@ import { useToast } from '../providers/ToastProvider';
 
 export const useUser = () => {
   const { setLoginUser } = useLoginUser();
-  const { toTop } = useRedirect();
+  const { toTop, goBack } = useRedirect();
   const { setToast } = useToast();
 
   /**
@@ -27,7 +27,7 @@ export const useUser = () => {
       .then(res => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
-        toTop();
+        goBack();
         setToast({text: '登録が完了しました', status: 'success'})
       })
       .catch(() => {
@@ -39,7 +39,7 @@ export const useUser = () => {
           createdAt: '2022-01-01T00:00:00+09:00'
         };
         setLoginUser(user);
-        toTop();
+        goBack();
         setToast({text: '登録が完了しました', status: 'success'})
       })
   }, []);
@@ -56,7 +56,7 @@ export const useUser = () => {
       .then(res => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
-        toTop();
+        goBack();
         setToast({text: 'ログインしました', status: 'success'})
       })
       .catch(() => {
@@ -68,7 +68,7 @@ export const useUser = () => {
           createdAt: '2022-01-01T00:00:00+09:00'
         };
         setLoginUser(user);
-        toTop();
+        goBack();
         setToast({text: 'ログインしました', status: 'success'})
       })
   }, []);

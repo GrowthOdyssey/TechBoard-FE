@@ -10,11 +10,7 @@ type props = {
 export const Heading: VFC<props> = memo((props) => {
   const { children, size, isCenter } = props;
 
-  return (
-    <_Heading className={`${size && `heading--${size}`} ${isCenter ? 'center' : ''}`}>
-      {children}
-    </_Heading>
-  );
+  return <_Heading className={`${size && `heading--${size}`} ${isCenter ? 'center' : ''}`}>{children}</_Heading>;
 });
 
 Heading.defaultProps = {

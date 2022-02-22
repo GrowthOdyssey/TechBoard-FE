@@ -16,6 +16,7 @@ export const useArticle = () => {
     articleTitle: '',
     contents: '',
     avatarId: '',
+    userId: '',
     userName: '',
     createdAt: '',
     updatedAt: '',
