@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const isDevelopment = (<any>import.meta).env.VITE_MODE;
 
-export const apiPath = (<any>import.meta).env.API_KEY;
+export const apiPath = (<any>import.meta).env.VITE_API_KEY;
 
 export const imagePath = isDevelopment ? '/images/' : '/assets/images/';
 

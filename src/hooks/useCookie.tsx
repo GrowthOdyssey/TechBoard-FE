@@ -12,7 +12,7 @@ export const useCookie = () => {
       sessionId = cookies.sessionId;
     } else {
       const randomId = getRandomId(8);
-      setCookie('sessionId', randomId);
+      setCookie('sessionId', randomId, { maxAge: 86400 });
       sessionId = randomId;
     }
 
