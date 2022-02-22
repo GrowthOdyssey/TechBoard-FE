@@ -1,49 +1,61 @@
 import { VFC, memo, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { BoardCard } from '../../components/board/Card';
 import { BoardSideBar } from '../../components/board/SideBar';
 import { Heading } from '../../components/common/Heading';
+import { Loading } from '../../components/common/Loading';
+import { Pagination } from '../../components/common/Pagination';
 import { Contents } from '../../components/Contents';
 import { useBoard } from '../../hooks/useBoard';
-import { palette } from '../../variable';
+import { palette, perPage } from '../../variable';
 
 export const BoardTop: VFC = memo(() => {
-  const { threadList, categories, getThreadList, getCategories } = useBoard();
+  const { threadList, threadLength, categories, loading, getThreadList, getCategories } = useBoard();
+  const { page } = useParams<{ page: string }>();
 
   useEffect(() => {
     getCategories();
-    getThreadList('1', '20');
-  }, []);
+    getThreadList(page, `${perPage}`);
+  }, [page]);
 
   return (
     <>
       <BoardSideBar isVisible={'top'} />
-      <Contents>
-        <Heading size={'2'}>掲示板TOP</Heading>
-        <section>
-          <Heading size={'4'}>カテゴリー一覧</Heading>
-          <_CategoryList>
-            {categories.map((category) => (
-              <Link to={`/board/category/${category.categoryId}/`} key={category.categoryId}>
-                {category.categoryName}
-              </Link>
-            ))}
-          </_CategoryList>
-        </section>
-        <section style={{ marginTop: '40px' }}>
-          <Heading size={'4'}>最新のスレッド一覧</Heading>
-          <ul className="list">
-            {threadList.map((thread) => (
-              <BoardCard
-                key={thread.threadId}
-                data={thread}
-                category={categories.find((v) => v.categoryId === thread.categoryId)?.categoryName}
-              />
-            ))}
-          </ul>
-        </section>
-      </Contents>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Contents>
+          <Heading size={'2'}>掲示板TOP</Heading>
+          <section>
+            <Heading size={'4'}>カテゴリー一覧</Heading>
+            <_CategoryList>
+              {categories.map((category) => (
+                <Link to={`/board/${category.categoryName}/page=1`} key={category.categoryId}>
+                  {category.categoryName}
+                </Link>
+              ))}
+            </_CategoryList>
+          </section>
+          <section style={{ marginTop: '40px' }}>
+            <Heading size={'4'}>最新のスレッド一覧</Heading>
+            {threadList.length ? (
+              <ul className="list">
+                {threadList.map((thread) => (
+                  <BoardCard
+                    key={thread.threadId}
+                    data={thread}
+                    category={categories.find((v) => v.categoryId === thread.categoryId)?.categoryName}
+                  />
+                ))}
+              </ul>
+            ) : (
+              <p>スレッドがまだ作成されていません</p>
+            )}
+          </section>
+          {threadLength ? <Pagination path={'/board'} page={page} length={threadLength} /> : ''}
+        </Contents>
+      )}
     </>
   );
 });

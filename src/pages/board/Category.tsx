@@ -3,38 +3,53 @@ import { useParams } from 'react-router-dom';
 import { BoardCard } from '../../components/board/Card';
 import { BoardSideBar } from '../../components/board/SideBar';
 import { Heading } from '../../components/common/Heading';
+import { Loading } from '../../components/common/Loading';
+import { Pagination } from '../../components/common/Pagination';
 import { Contents } from '../../components/Contents';
 import { useBoard } from '../../hooks/useBoard';
+import { perPage } from '../../variable';
 
 export const BoardCategory: VFC = memo(() => {
-  const { categoryId } = useParams<{ categoryId: string }>();
-  const { threadList, categories, getThreadList, getCategories } = useBoard();
+  const { threadList, threadLength, categories, loading, getThreadList, getCategories } = useBoard();
+  const { categoryName, page } = useParams<{ categoryName: string; page: string }>();
 
   useEffect(() => {
     getCategories();
-    getThreadList('1', '20', categoryId);
-  }, []);
+  }, [page, categoryName]);
 
-  const getCategoryName = (id: string) => {
-    const target = categories.find((v) => v.categoryId === id);
+  useEffect(() => {
+    if (categories.length) getThreadList(page, `${perPage}`, getCategoryId(categoryName));
+  }, [categories]);
+
+  const getCategoryId = (name: string) => {
+    const target = categories.find((v) => v.categoryName === name);
     if (!target) return;
 
-    return target.categoryName;
+    return target.categoryId;
   };
 
   return (
     <>
       <BoardSideBar />
-      <Contents>
-        <Heading size={'2'}>{getCategoryName(categoryId)}のスレッド一覧</Heading>
-        <section>
-          <ul className="list">
-            {threadList.map((thread) => (
-              <BoardCard key={thread.threadId} data={thread} />
-            ))}
-          </ul>
-        </section>
-      </Contents>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Contents>
+          <Heading size={'2'}>{categoryName}のスレッド一覧</Heading>
+          <section>
+            {threadList.length ? (
+              <ul className="list">
+                {threadList.map((thread) => (
+                  <BoardCard key={thread.threadId} data={thread} />
+                ))}
+              </ul>
+            ) : (
+              <p>スレッドがまだ作成されていません</p>
+            )}
+          </section>
+          {threadLength ? <Pagination path={`/board/${categoryName}`} page={page} length={threadLength} /> : ''}
+        </Contents>
+      )}
     </>
   );
 });

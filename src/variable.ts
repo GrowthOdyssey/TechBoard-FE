@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const isDevelopment = (<any>import.meta).env.VITE_MODE;
 
-// export const apiPath = 'https://stormy-headland-72800.herokuapp.com/v1';
-export const apiPath = 'http://127.0.0.1:4010/v1';
+export const apiPath = 'https://stormy-headland-72800.herokuapp.com/v1';
+// export const apiPath = 'http://127.0.0.1:4010/v1';
 
 export const imagePath = isDevelopment ? '/images/' : '/assets/images/';
+
+export const perPage = 20;
+
+export const paginationLength = 5;
 
 export const palette = {
   red: ['#e53e3e'],

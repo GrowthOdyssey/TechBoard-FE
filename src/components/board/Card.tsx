@@ -16,7 +16,7 @@ export const BoardCard: VFC<props> = memo((props) => {
 
   return (
     <_Card>
-      <Link to={`/board/detail/${threadId}/`}>
+      <Link to={`/board/detail/${threadId}`}>
         {category && <_Category>{category}</_Category>}
         <_Title>
           {threadTitle}（{commentsCount}）

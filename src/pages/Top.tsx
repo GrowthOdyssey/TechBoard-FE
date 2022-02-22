@@ -9,14 +9,16 @@ import { palette } from '../variable';
 import { useArticle } from '../hooks/useArticle';
 import { useBoard } from '../hooks/useBoard';
 
+const perPage = 5;
+
 export const Top: VFC = memo(() => {
   const { articleList, getArticleList } = useArticle();
   const { categories, threadList, getThreadList, getCategories } = useBoard();
 
   useEffect(() => {
     getCategories();
-    getThreadList('1', '5');
-    getArticleList('1', '5');
+    getThreadList('1', `${perPage}`);
+    getArticleList('1', `${perPage}`);
   }, []);
 
   return (
@@ -74,7 +76,7 @@ export const Top: VFC = memo(() => {
             </p>
           </_Description>
           <_LinkWrapper>
-            <Link to="/board/">
+            <Link to="/board/page=1">
               <Button label={'ENTER'} color={'teal'} />
             </Link>
           </_LinkWrapper>

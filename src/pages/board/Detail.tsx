@@ -10,12 +10,13 @@ import { Button } from '../../components/common/Button';
 import { useLoginUser } from '../../providers/LoginUserProvider';
 import { palette } from '../../variable';
 import { useBoard } from '../../hooks/useBoard';
+import { Loading } from '../../components/common/Loading';
 
 export const BoardDetail: VFC = memo(() => {
   const { loginUser } = useLoginUser();
   const { id } = useParams<{ id: string }>();
   const [comment, setComment] = useState('');
-  const { thread, getThread, createComment } = useBoard();
+  const { thread, loading, getThread, createComment } = useBoard();
 
   useEffect(() => {
     getThread(id);
@@ -33,30 +34,45 @@ export const BoardDetail: VFC = memo(() => {
   return (
     <>
       <BoardSideBar />
-      <Contents>
-        <Heading size={'2'}>{thread.threadTitle}</Heading>
-        <_CommentList>
-          {thread.comments
-            ? thread.comments.map((comment) => <BoardComment key={comment.commentId} data={comment} />)
-            : 'まだコメントが投稿されていません。'}
-        </_CommentList>
-        <_CommentForm>
-          <Heading size={'4'}>コメントを投稿する</Heading>
-          <_CommentUserName>
-            <span>ニックネーム</span>
-            <input type="text" value={getUserName()} disabled />
-          </_CommentUserName>
-          <Textarea value={comment} placeholder={'コメントを入力してください'} rows={5} onChange={onchangeSetComment} />
-          <_CommentSubmit>
-            <Button label={'コメントを投稿'} onclick={submitComment} isDisabled={comment.length === 0 ? true : false} />
-          </_CommentSubmit>
-        </_CommentForm>
-      </Contents>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Contents>
+          <Heading size={'2'}>{thread.threadTitle}</Heading>
+          <_CommentList>
+            {thread.comments.length
+              ? thread.comments.map((comment) => <BoardComment key={comment.commentId} data={comment} />)
+              : 'まだコメントが投稿されていません。'}
+          </_CommentList>
+          <_CommentForm>
+            <Heading size={'4'}>コメントを投稿する</Heading>
+            <_CommentUserName>
+              <span>ニックネーム</span>
+              <input type="text" value={getUserName()} disabled />
+            </_CommentUserName>
+            <Textarea
+              value={comment}
+              placeholder={'コメントを入力してください'}
+              rows={5}
+              onChange={onchangeSetComment}
+            />
+            <_CommentSubmit>
+              <Button
+                label={'コメントを投稿'}
+                onclick={submitComment}
+                isDisabled={comment.length === 0 ? true : false}
+              />
+            </_CommentSubmit>
+          </_CommentForm>
+        </Contents>
+      )}
     </>
   );
 });
 
-const _CommentList = styled.ul``;
+const _CommentList = styled.ul`
+  counter-reset: num;
+`;
 
 const _CommentForm = styled.div`
   margin-top: 30px;

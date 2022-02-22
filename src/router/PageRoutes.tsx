@@ -51,13 +51,13 @@ export const pageRoutes = [
     children: <ArticleEdit />,
   },
   {
-    path: '/board/',
+    path: '/board/page=:page',
     exact: true,
     sideBar: true,
     children: <BoardTop />,
   },
   {
-    path: '/board/category/:categoryId',
+    path: '/board/:categoryName/page=:page',
     exact: false,
     sideBar: true,
     children: <BoardCategory />,
