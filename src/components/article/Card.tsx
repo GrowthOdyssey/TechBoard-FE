@@ -1,6 +1,7 @@
 import { memo, VFC } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useLoginUser } from '../../providers/LoginUserProvider';
 import { articleType } from '../../types/article/articleType';
 import { palette } from '../../variable';
 import { AvatarIcon } from '../common/AvatarIcon';
@@ -11,7 +12,8 @@ type props = {
 };
 
 export const ArticleCard: VFC<props> = memo((props) => {
-  const { articleId, articleTitle, userName, createdAt } = props.data;
+  const { articleId, articleTitle, userId, userName, createdAt } = props.data;
+  const { loginUser } = useLoginUser();
   return (
     <_Card>
       <Link to={`/article/detail/${articleId}`}>
@@ -22,17 +24,38 @@ export const ArticleCard: VFC<props> = memo((props) => {
         </div>
         <_Title>{articleTitle}</_Title>
       </Link>
+      {userId === loginUser.userId && (
+        <div className="buttons">
+          <Link to={`/article/edit/${articleId}`}>編集</Link>
+        </div>
+      )}
     </_Card>
   );
 });
 
 const _Card = styled.li`
+  position: relative;
+  padding: 10px 20px;
   background: #fff;
   border: 1px solid ${palette.border};
   border-radius: 4px;
-  > a {
-    display: block;
-    padding: 10px 20px;
+  > .buttons {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    display: flex;
+    justify-content: flex-end;
+    > a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      margin-left: 4px;
+      border: 1px solid ${palette.border};
+      border-radius: 50%;
+      font-size: 12px;
+    }
   }
 `;
 
