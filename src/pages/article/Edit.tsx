@@ -5,6 +5,7 @@ import { MarkDownEditor } from '../../components/article/MarkDownEditor';
 import { ArticleSideBar } from '../../components/article/SideBar';
 import { Button } from '../../components/common/Button';
 import { Heading } from '../../components/common/Heading';
+import { Loading } from '../../components/common/Loading';
 import { TextInput } from '../../components/common/TextInput';
 import { Contents } from '../../components/Contents';
 import { useArticle } from '../../hooks/useArticle';
@@ -15,7 +16,7 @@ import { palette } from '../../variable';
 export const ArticleEdit: VFC = memo(() => {
   const { id } = useParams<{ id: string }>();
   const { loginUser } = useLoginUser();
-  const { article, getArticle, updateArticle } = useArticle();
+  const { article, loading, getArticle, updateArticle } = useArticle();
   const { setToast } = useToast();
   const history = useHistory();
   const [title, setTitle] = useState(article.articleId);
@@ -40,16 +41,20 @@ export const ArticleEdit: VFC = memo(() => {
   return (
     <>
       <ArticleSideBar />
-      <Contents>
-        <Heading size={'2'}>記事編集</Heading>
-        <_Form>
-          <Heading size={'4'}>Title</Heading>
-          <TextInput value={title} placeholder={'Titleを入力してください'} onChange={onchangeTitle} />
-          <Heading size={'4'}>記事内容</Heading>
-          <MarkDownEditor isEdit value={content} onChange={onchangeContent} />
-          <Button label={'更新'} onclick={onclickUpdateArticle} isDisabled={loginUser.userId ? false : true} />
-        </_Form>
-      </Contents>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Contents>
+          <Heading size={'2'}>記事編集</Heading>
+          <_Form>
+            <Heading size={'4'}>Title</Heading>
+            <TextInput value={title} placeholder={'Titleを入力してください'} onChange={onchangeTitle} />
+            <Heading size={'4'}>記事内容</Heading>
+            <MarkDownEditor isEdit value={content} onChange={onchangeContent} />
+            <Button label={'更新'} onclick={onclickUpdateArticle} isDisabled={loginUser.userId ? false : true} />
+          </_Form>
+        </Contents>
+      )}
     </>
   );
 });

@@ -11,6 +11,7 @@ import { articleType } from '../types/article/articleType';
 export const useArticle = () => {
   const history = useHistory();
   const { setToast } = useToast();
+  const [loading, setLoading] = useState(true);
   const [article, setArticle] = useState<articleDetailType>({
     articleId: '',
     articleTitle: '',
@@ -37,6 +38,7 @@ export const useArticle = () => {
       .then(res => setArticleList(m_articles)) // [WIP] レスポンスが設定されていないため一時的に入れ替え(m_articles⇄res.data.articles)
       // TODO: エラーハンドリング実装
       .catch(() => setArticleList(m_articles))
+      .finally(() => setLoading(false));
   }, []);
 
   /**
@@ -69,7 +71,8 @@ export const useArticle = () => {
     axios
       .get(`${apiPath}/articles/${articleId}`)
       .then((res) => setArticle(m_article)) // [WIP] レスポンスが設定されていないため一時的に入れ替え(m_article⇄res.data.article)
-      .catch(() => setArticle(m_article));
+      .catch(() => setArticle(m_article))
+      .finally(() => setLoading(false));
   }, []);
 
   /**
@@ -96,5 +99,5 @@ export const useArticle = () => {
     //
   }, []);
 
-  return { article, articleList, getArticleList, createArticle, getArticle, updateArticle, removeArticle };
+  return { article, articleList, loading, getArticleList, createArticle, getArticle, updateArticle, removeArticle };
 };
