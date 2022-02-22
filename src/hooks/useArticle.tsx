@@ -16,6 +16,7 @@ export const useArticle = () => {
     articleTitle: '',
     contents: '',
     avatarId: '',
+    userId: '',
     userName: '',
     createdAt: '',
     updatedAt: '',
@@ -74,8 +75,18 @@ export const useArticle = () => {
   /**
    * 記事更新API
    */
-  const updateArticle = useCallback(() => {
-    //
+  const updateArticle = useCallback((accessToken: string, articleId: string, articleTitle: string, contents: string) => {
+    axios
+      .put(`${apiPath}/articles/${articleId}`, { articleTitle, contents }, { headers: { accessToken } })
+      .then((res) => {
+        history.push(`/article/detail/${res.data.articleId}/`);
+        setToast({ text: '記事を更新しました', status: 'success' });
+      })
+      // TODO: エラーハンドリング実装
+      .catch(() => {
+        history.push(`/article/detail/${articleId}/`);
+        setToast({ text: '記事を更新しました', status: 'success' });
+      });
   }, []);
 
   /**

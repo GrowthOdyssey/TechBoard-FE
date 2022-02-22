@@ -5,5 +5,7 @@ export const useRedirect = () => {
 
   const toTop = () => history.push('/');
 
-  return { toTop };
+  const goBack = () => history.goBack();
+
+  return { toTop, goBack };
 };

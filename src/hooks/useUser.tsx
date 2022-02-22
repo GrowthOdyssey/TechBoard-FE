@@ -10,7 +10,7 @@ import { useCookie } from './useCookie';
 // prettier-ignore
 export const useUser = () => {
   const { setLoginUser } = useLoginUser();
-  const { toTop } = useRedirect();
+  const { toTop, goBack } = useRedirect();
   const { setToast } = useToast();
   const { setAccessToken, removeAccessToken } = useCookie()
 
@@ -30,7 +30,7 @@ export const useUser = () => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
         setAccessToken(user.accessToken)
-        toTop();
+        goBack();
         setToast({text: '登録が完了しました', status: 'success'})
       })
       .catch(() => setToast({text: '会員登録に失敗しました', status: 'error'}))
@@ -48,7 +48,7 @@ export const useUser = () => {
         const user: LoginUserType = res.data;
         setLoginUser(user);
         setAccessToken(user.accessToken)
-        toTop();
+        goBack();
         setToast({text: 'ログインしました', status: 'success'})
       })
       .catch(() => setToast({text: 'ログインに失敗しました', status: 'error'}))

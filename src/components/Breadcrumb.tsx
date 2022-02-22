@@ -39,6 +39,11 @@ export const Breadcrumb: VFC = memo(() => {
           path: '/article/detail/',
           label: '記事',
         });
+      } else if (path.includes('edit')) {
+        childPaths.push({
+          path: '/article/detail/',
+          label: '記事編集',
+        });
       }
     } else if (path.includes('board')) {
       childPaths.push({
