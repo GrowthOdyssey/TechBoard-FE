@@ -15,12 +15,12 @@ export const Signup: VFC = memo(() => {
   const { signup } = useUser();
   const { loginUser } = useLoginUser();
   const { toTop } = useRedirect();
-  
+
   useEffect(() => {
     if (loginUser.userId) {
       toTop();
     }
-  }, [])
+  }, []);
 
   const onchangeUserId = (e: ChangeEvent<HTMLInputElement>) => setUserId(e.target.value);
   const onchangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
