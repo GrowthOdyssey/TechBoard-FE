@@ -87,7 +87,7 @@ export const useBoard = () => {
       .then((res) => setThread(res.data))
       .finally(() => setLoading(false))
   };
-  const useFetchThread = (threadId: string) => useSWR(`${apiPath}/threads/${threadId}`, fetcher);
+  const useFetchThread = (threadId: string) => useSWR(`${apiPath}/threads/${threadId}`, fetcher, { refreshInterval: 1000 });
 
   /**
    * コメント作成API
