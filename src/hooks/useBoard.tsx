@@ -48,9 +48,14 @@ export const useBoard = () => {
     axios.get(`${apiPath}/threads?${categoryQuery}&page=${page}&perPage=${perPage}`)
       .then(res => {
         const threads = res.data.threads;
-        setThreadLength(res.data.pagination.total)
-        const pagingData = getPaging(page, perPage, threads)
-        setThreadList(pagingData)
+        setThreadLength(res.data.pagination.total);
+        if (threads.length) {
+          const pagingData = getPaging(page, perPage, threads);
+          setThreadList(pagingData)
+        }
+        else {
+          setThreadList([])
+        }
       })
       .catch(() => setThreadList([]))
       .finally(() => setLoading(false))
