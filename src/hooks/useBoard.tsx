@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import axios from 'axios';
+import useSWR from 'swr';
 import { apiPath } from '../variable';
 import { categoryType } from '../types/board/category';
 import { threadListType, threadType } from '../types/board/thread';
@@ -76,12 +77,12 @@ export const useBoard = () => {
    * @param  {string} threadId
    * @return {threadType}
    */
-  const getThread = useCallback((threadId: string) => {
-    axios.get(`${apiPath}/threads/${threadId}`)
-      .then(res => setThread(res.data))
-      // .catch(() => setThread(null))
+  const fetcher = (url: string) => {
+    axios(url)
+      .then((res) => setThread(res.data))
       .finally(() => setLoading(false))
-  }, []);
+  };
+  const useFetchThread = (threadId: string) => useSWR(`${apiPath}/threads/${threadId}`, fetcher);
 
   /**
    * コメント作成API
@@ -124,7 +125,7 @@ export const useBoard = () => {
     loading,
     getThreadList,
     createThread,
-    getThread,
+    useFetchThread,
     createComment,
     getCategories,
   };

@@ -1,6 +1,4 @@
-import { VFC, memo, useState, useEffect, ChangeEvent } from 'react';
-import useSWR from 'swr';
-import axios from 'axios';
+import { VFC, memo, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router';
 import { BoardComment } from '../../components/board/Comment';
@@ -10,7 +8,7 @@ import { Contents } from '../../components/Contents';
 import { Textarea } from '../../components/common/Textarea';
 import { Button } from '../../components/common/Button';
 import { useLoginUser } from '../../providers/LoginUserProvider';
-import { apiPath, palette } from '../../variable';
+import { palette } from '../../variable';
 import { useBoard } from '../../hooks/useBoard';
 import { Loading } from '../../components/common/Loading';
 
@@ -18,13 +16,9 @@ export const BoardDetail: VFC = memo(() => {
   const { loginUser } = useLoginUser();
   const { id } = useParams<{ id: string }>();
   const [comment, setComment] = useState('');
-  const { thread, loading, getThread, createComment } = useBoard();
-  const fetcher = (url: string) => axios(url);
-  const { data } = useSWR(`${apiPath}/threads/${id}`, fetcher);
+  const { thread, loading, useFetchThread, createComment } = useBoard();
 
-  useEffect(() => {
-    getThread(id);
-  }, [id, data]);
+  useFetchThread(id);
 
   const getUserName = () => (loginUser.userName ? loginUser.userName : '名無しさん');
 
