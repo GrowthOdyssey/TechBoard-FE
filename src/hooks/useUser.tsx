@@ -47,6 +47,20 @@ export const useUser = () => {
   }, []);
 
   /**
+   * アクセストークンログインAPI
+   * @param  {string} accessToken
+   * @return {LoginUserType}
+   */
+  const tokenLogin = useCallback((accessToken: string) => {
+    axios.get(`${apiPath}/users`, {headers: {accessToken}})
+      .then(res => {
+        const user: LoginUserType = res.data;
+        setLoginUser(user);
+        setAccessToken(user.accessToken);
+      })
+  }, []);
+
+  /**
    * ログインAPI
    * @param  {string} userId
    * @param  {string} password
@@ -86,5 +100,5 @@ export const useUser = () => {
       });
   }, []);
 
-  return { status, signup, login, logout };
+  return { status, signup, tokenLogin, login, logout };
 };
