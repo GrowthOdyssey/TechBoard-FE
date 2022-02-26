@@ -16,8 +16,8 @@ export const Button: VFC<props> = memo((props) => {
   const { label, onclick, color, isDisabled, isStatus } = props;
 
   const getClassName = (color?: string, status?: statusType) => {
-    let className = `btn btn--${color} `;
-    if (status !== 'useable') className += status;
+    let className = `btn btn--${color}`;
+    if (status && status !== 'useable') className += ` ${status}`;
 
     return className;
   };
