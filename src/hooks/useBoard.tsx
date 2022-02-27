@@ -7,7 +7,6 @@ import { threadListType, threadType } from '../types/board/thread';
 import { useCookie } from './useCookie';
 import { useHistory } from 'react-router-dom';
 import { useToast } from '../providers/ToastProvider';
-import { getPaging } from '../utility';
 
 // prettier-ignore
 export const useBoard = () => {
@@ -49,13 +48,7 @@ export const useBoard = () => {
       .then(res => {
         const threads = res.data.threads;
         setThreadLength(res.data.pagination.total);
-        if (threads.length) {
-          const pagingData = getPaging(page, perPage, threads);
-          setThreadList(pagingData)
-        }
-        else {
-          setThreadList([])
-        }
+        threads.length ? setThreadList(threads) : setThreadList([]);
       })
       .catch(() => setThreadList([]))
       .finally(() => setLoading(false))
@@ -133,5 +126,6 @@ export const useBoard = () => {
     useFetchThread,
     createComment,
     getCategories,
+    setLoading
   };
 };
