@@ -10,10 +10,11 @@ import { useBoard } from '../../hooks/useBoard';
 import { perPage } from '../../variable';
 
 export const BoardCategory: VFC = memo(() => {
-  const { threadList, threadLength, categories, loading, getThreadList, getCategories } = useBoard();
+  const { threadList, threadLength, categories, loading, getThreadList, getCategories, setLoading } = useBoard();
   const { categoryName, page } = useParams<{ categoryName: string; page: string }>();
 
   useEffect(() => {
+    setLoading(true);
     getCategories();
   }, [page, categoryName]);
 

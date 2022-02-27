@@ -11,7 +11,7 @@ import { useLoginUser } from '../providers/LoginUserProvider';
 export const Login: VFC = memo(() => {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useUser();
+  const { status, login } = useUser();
   const { loginUser } = useLoginUser();
   const { toTop } = useRedirect();
 
@@ -31,7 +31,7 @@ export const Login: VFC = memo(() => {
       </Heading>
       <TextInput value={userId} placeholder={'ログインID'} onChange={onchangeUserId} />
       <TextInput value={password} placeholder={'パスワード'} onChange={onchangePassword} />
-      <Button label={'ログイン'} onclick={() => login({ userId, password })} />
+      <Button label={'ログイン'} onclick={() => login({ userId, password })} isStatus={status} />
       <Link to="/signup" className="link">
         新規会員登録はこちら
       </Link>

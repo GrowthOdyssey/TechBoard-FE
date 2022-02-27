@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react';
 import axios from 'axios';
+import useSWR from 'swr';
 import { apiPath } from '../variable';
 import { categoryType } from '../types/board/category';
 import { threadListType, threadType } from '../types/board/thread';
 import { useCookie } from './useCookie';
 import { useHistory } from 'react-router-dom';
 import { useToast } from '../providers/ToastProvider';
-import { getPaging } from '../utility';
 
 // prettier-ignore
 export const useBoard = () => {
@@ -47,9 +47,8 @@ export const useBoard = () => {
     axios.get(`${apiPath}/threads?${categoryQuery}&page=${page}&perPage=${perPage}`)
       .then(res => {
         const threads = res.data.threads;
-        setThreadLength(threads.length)
-        const pagingData = getPaging(page, perPage, threads)
-        setThreadList(pagingData)
+        setThreadLength(res.data.pagination.total);
+        threads.length ? setThreadList(threads) : setThreadList([]);
       })
       .catch(() => setThreadList([]))
       .finally(() => setLoading(false))
@@ -76,12 +75,12 @@ export const useBoard = () => {
    * @param  {string} threadId
    * @return {threadType}
    */
-  const getThread = useCallback((threadId: string) => {
-    axios.get(`${apiPath}/threads/${threadId}`)
-      .then(res => setThread(res.data))
-      // .catch(() => setThread(null))
+  const fetcher = (url: string) => {
+    axios(url)
+      .then((res) => setThread(res.data))
       .finally(() => setLoading(false))
-  }, []);
+  };
+  const useFetchThread = (threadId: string) => useSWR(`${apiPath}/threads/${threadId}`, fetcher, { refreshInterval: 1000 });
 
   /**
    * コメント作成API
@@ -124,8 +123,9 @@ export const useBoard = () => {
     loading,
     getThreadList,
     createThread,
-    getThread,
+    useFetchThread,
     createComment,
     getCategories,
+    setLoading
   };
 };

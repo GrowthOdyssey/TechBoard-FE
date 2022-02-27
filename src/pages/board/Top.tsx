@@ -11,10 +11,11 @@ import { useBoard } from '../../hooks/useBoard';
 import { palette, perPage } from '../../variable';
 
 export const BoardTop: VFC = memo(() => {
-  const { threadList, threadLength, categories, loading, getThreadList, getCategories } = useBoard();
+  const { threadList, threadLength, categories, loading, getThreadList, getCategories, setLoading } = useBoard();
   const { page } = useParams<{ page: string }>();
 
   useEffect(() => {
+    setLoading(true);
     getCategories();
     getThreadList(page, `${perPage}`);
   }, [page]);
