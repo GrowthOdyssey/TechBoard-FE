@@ -33,7 +33,7 @@ export const Layout: VFC<props> = memo((props) => {
 });
 
 const _Container = styled.div`
-  max-width: 1040px;
+  width: 1040px;
   margin: 20px auto 40px;
   padding: 0 20px;
 `;

@@ -11,12 +11,13 @@ import { useLoginUser } from '../../providers/LoginUserProvider';
 import { palette } from '../../variable';
 import { useBoard } from '../../hooks/useBoard';
 import { Loading } from '../../components/common/Loading';
+import { ErrorText } from '../../components/common/ErrorText';
 
 export const BoardDetail: VFC = memo(() => {
   const { loginUser } = useLoginUser();
   const { id } = useParams<{ id: string }>();
   const [comment, setComment] = useState('');
-  const { thread, loading, useFetchThread, createComment } = useBoard();
+  const { thread, errorText, loading, useFetchThread, createComment } = useBoard();
 
   useFetchThread(id);
 
@@ -48,6 +49,7 @@ export const BoardDetail: VFC = memo(() => {
           {thread.comments.length >= 1000 && (
             <_CautionText>コメント数が1000を超えています。これ以上書き込みはできません。</_CautionText>
           )}
+          {errorText.length ? <ErrorText errors={errorText} /> : ''}
           <_CommentForm className={thread.comments.length >= 1000 ? 'isdisabled' : ''}>
             <Heading size={'4'}>コメントを投稿する</Heading>
             <_CommentUserName>
@@ -79,7 +81,7 @@ const _CommentList = styled.ul`
 `;
 
 const _CommentForm = styled.div`
-  margin-top: 30px;
+  margin-top: 40px;
   padding: 20px 30px 30px;
   background: #fff;
   &.isdisabled {

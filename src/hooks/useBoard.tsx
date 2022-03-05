@@ -30,7 +30,8 @@ export const useBoard = () => {
   const [threadList, setThreadList] = useState<threadListType[]>([]);
   const [threadLength, setThreadLength] = useState(0);
   const [categories, setCategory] = useState<categoryType[]>([]);
-  const [loading, setLoading] = useState(true)
+  const [errorText, setErrorText] = useState<string[]>([])
+  const [loading, setLoading] = useState(true);
   const { getSessionId } = useCookie();
   const { setToast } = useToast();
   const history = useHistory();
@@ -67,7 +68,10 @@ export const useBoard = () => {
         history.push(`/board/detail/${res.data.threadId}`)
         setToast({text: 'スレッドを作成しました', status: 'success'})
       })
-      .catch(() => setToast({text: 'スレッドを作成できませんでした', status: 'error'}))
+      .catch((err) => {
+        setErrorText(err.response.data.errors);
+        setToast({text: 'スレッドを作成できませんでした', status: 'error'})
+      })
   }, []);
 
   /**
@@ -99,9 +103,13 @@ export const useBoard = () => {
     axios.post(`${apiPath}/threads/${threadId}/comments`, postData)
     .then((res) => {
       thread.comments.push(res.data)
+      setErrorText([])
       setThread({...thread})
     })
-    .catch(() => setToast({text: 'コメント投稿に失敗しました', status: 'error'}))
+    .catch((err) => {
+      setErrorText(err.response.data.errors);
+      setToast({text: 'コメント投稿に失敗しました', status: 'error'})
+    })
   }, [thread]);
 
   /**
@@ -120,6 +128,7 @@ export const useBoard = () => {
     threadList,
     threadLength,
     categories,
+    errorText,
     loading,
     getThreadList,
     createThread,
