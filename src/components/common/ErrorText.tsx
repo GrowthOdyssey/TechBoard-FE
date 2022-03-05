@@ -21,7 +21,8 @@ export const ErrorText: VFC<props> = memo((props) => {
 });
 
 const _Container = styled.div`
-  margin: 20px 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 10px 20px;
   color: ${palette.red};
   border: 1px solid ${palette.red};

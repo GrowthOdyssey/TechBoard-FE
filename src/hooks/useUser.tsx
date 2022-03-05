@@ -12,6 +12,7 @@ type statusType = 'useable' | 'loading' | 'complete';
 // prettier-ignore
 export const useUser = () => {
   const [status, setStatus] = useState<statusType>('useable')
+  const [errorText, setErrorText] = useState<string[]>([])
   const { setLoginUser } = useLoginUser();
   const { toTop, goBack } = useRedirect();
   const { setToast } = useToast();
@@ -40,8 +41,10 @@ export const useUser = () => {
           setToast({text: '登録が完了しました', status: 'success'})
         }, 1000)
       })
-      .catch(() => {
+      .catch((err) => {
+        const errVal: string[] = Object.values(err.response.data.errors);
         setStatus('useable');
+        setErrorText(errVal);
         setToast({text: '会員登録に失敗しました', status: 'error'})
       })
   }, []);
@@ -79,8 +82,9 @@ export const useUser = () => {
           setToast({text: 'ログインしました', status: 'success'})
         }, 1000)
       })
-      .catch(() => {
+      .catch((err) => {
         setStatus('useable');
+        setErrorText([err.response.data.message]);
         setToast({text: 'ログインに失敗しました', status: 'error'})
       })
   }, []);
@@ -100,5 +104,5 @@ export const useUser = () => {
       });
   }, []);
 
-  return { status, signup, tokenLogin, login, logout };
+  return { status, errorText, signup, tokenLogin, login, logout };
 };
