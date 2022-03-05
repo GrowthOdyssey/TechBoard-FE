@@ -7,5 +7,7 @@ export const useRedirect = () => {
 
   const goBack = () => history.goBack();
 
-  return { toTop, goBack };
+  const toLogin = () => history.push('/login');
+
+  return { toTop, goBack, toLogin };
 };

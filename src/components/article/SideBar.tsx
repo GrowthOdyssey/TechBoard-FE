@@ -23,7 +23,7 @@ export const ArticleSideBar: VFC<props> = memo((props) => {
         記事検索
       </Link>
       {loginUser.userId && (
-        <Link className={isVisible === 'mypage' ? 'is-active' : ''} to={`/article?userId=${loginUser.userId}`}>
+        <Link className={isVisible === 'mypage' ? 'is-active' : ''} to="/article/mypage">
           投稿した記事
         </Link>
       )}

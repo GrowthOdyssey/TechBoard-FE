@@ -1,6 +1,7 @@
 import { ArticleCreate } from '../pages/article/Create';
 import { ArticleDetail } from '../pages/article/Detail';
 import { ArticleEdit } from '../pages/article/Edit';
+import { ArticleMyPage } from '../pages/article/MyPage';
 import { ArticleTop } from '../pages/article/Top';
 import { BoardCategory } from '../pages/board/Category';
 import { BoardCreate } from '../pages/board/Create';
@@ -49,6 +50,12 @@ export const pageRoutes = [
     exact: false,
     sideBar: true,
     children: <ArticleEdit />,
+  },
+  {
+    path: '/article/mypage',
+    exact: false,
+    sideBar: true,
+    children: <ArticleMyPage />,
   },
   {
     path: '/board/page=:page',
