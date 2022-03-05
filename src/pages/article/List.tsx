@@ -1,6 +1,6 @@
-import { memo, VFC } from "react";
-import { ArticleCard } from "../../components/article/Card";
-import { articleType } from "../../types/article/articleType";
+import { memo, VFC } from 'react';
+import { ArticleCard } from '../../components/article/Card';
+import { articleType } from '../../types/article/articleType';
 
 type props = {
   articleList: articleType[];
