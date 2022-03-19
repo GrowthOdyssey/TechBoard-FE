@@ -19,7 +19,7 @@ export const Header: VFC<props> = memo((props) => {
     <_Header>
       <_Inner>
         <Link to="/">
-          <_Logo src={`${imagePath}logo.svg`} />
+          <_Logo src={`${imagePath}logo.png`} />
         </Link>
         {loginUser.userId ? (
           <_Profile>
@@ -62,6 +62,7 @@ const _Inner = styled.div`
 `;
 
 const _Logo = styled.img`
+  width: 180px;
   vertical-align: top;
 `;
 
