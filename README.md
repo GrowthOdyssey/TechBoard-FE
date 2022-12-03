@@ -45,9 +45,3 @@ $ npm run sb
 ```
 $ npm run build-sb
 ```
-
-## Production
-https://tech-board.netlify.app/
-
-## storybook
-https://tech-board-storybook.netlify.app
